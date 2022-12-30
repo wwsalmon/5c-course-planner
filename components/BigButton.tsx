@@ -1,10 +1,10 @@
-import {ReactNode} from "react";
+import {DetailedHTMLProps, HTMLAttributes} from "react";
 import classNames from "classnames";
 
-export default function BigButton({className, children}: {className: string, children: ReactNode}) {
+export default function BigButton(props: DetailedHTMLProps<HTMLAttributes<HTMLButtonElement>, HTMLButtonElement>) {
+    let thisProps = {...props};
+    thisProps.className = classNames("block w-full border border-gray-400 text-gray-500 hover:bg-gray-100 hover:text-gray-700 hover:border-gray-600 text-center", thisProps.className);
     return (
-        <div className={classNames("border border-gray-400 text-gray-500 hover:bg-gray-100 hover:text-gray-700 hover:border-gray-600 text-center", className)}>
-            {children}
-        </div>
+        <button {...thisProps}/>
     )
 }
