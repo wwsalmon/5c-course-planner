@@ -8,7 +8,7 @@ import SemPos from "./SemPos";
 
 export default function SemCol({children, sem, dark, appState, setAppState}: {children?: ReactNode, sem: number, dark?: boolean, appState: SemState[], setAppState: Dispatch<SetStateAction<SemState[]>>}) {
     function addPos() {
-        setAppState(prev => [...prev, {title: "Untitled", sem, id: short.generate(), classes: []}]);
+        setAppState(prev => [...prev, {title: "Untitled", sem, id: short.generate(), courses: []}]);
     }
 
     return (

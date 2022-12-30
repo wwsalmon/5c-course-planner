@@ -20,11 +20,17 @@ export function decodeSemester(semNum: number) {
     return (semNum % 2 ? "F" : "S") + (Math.floor(semNum / 2)).toString().substring(2);
 }
 
+type IdCourse = string;
+
+interface CustomCourse {id: string, title: string};
+
+export type Course = IdCourse | CustomCourse;
+
 export interface SemState {
     sem: number,
     id: string,
     title: string,
-    classes: string[],
+    courses: Course[],
 }
 
 export default function Home() {
