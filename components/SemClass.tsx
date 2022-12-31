@@ -3,7 +3,7 @@ import data from "../data_5scheduler.json";
 import {FiPlus, FiX} from "react-icons/fi";
 import {Dispatch, SetStateAction} from "react";
 
-const colors = {
+export const colors = {
     Pomona: "#00549A",
     Pitzer: "#F4921C",
     HarveyMudd: "#333333",
@@ -12,7 +12,7 @@ const colors = {
 }
 
 export default function SemClass({course, setAppState, callback, isSearch, semId}: { course: Course, setAppState: Dispatch<SetStateAction<SemState[]>>, semId: string, callback?: () => void, isSearch?: boolean }) {
-    const thisCourse = data.find(d => d.identifier === course);
+    const thisCourse = typeof course === "string" ? data.find(d => d.identifier === course) : course;
 
     function onAdd() {
         setAppState(prev => {

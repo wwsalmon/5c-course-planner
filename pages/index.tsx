@@ -23,8 +23,9 @@ export function decodeSemester(semNum: number) {
 type IdCourse = string;
 
 interface CustomCourse {
-    id: string,
-    title: string
+    identifier: string,
+    title: string,
+    source: string,
 };
 
 export type Course = IdCourse | CustomCourse;
