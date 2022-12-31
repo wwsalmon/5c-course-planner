@@ -13,7 +13,6 @@ export default function SemPos({semState, setAppState}: {semState: SemState, set
         setAppState(prev => prev.filter(d => d.id !== semState.id));
     }
 
-    const [courses, setCourses] = useState<Course[]>([]);
     const [modalOpen, setModalOpen] = useState<boolean>(false);
     const [search, setSearch] = useState<string>("");
 
@@ -23,8 +22,8 @@ export default function SemPos({semState, setAppState}: {semState: SemState, set
                 <UpperH className="opacity-50">{semState.title}</UpperH>
                 <button className="ml-auto opacity-50 hover:opacity-100" onClick={onRemove}><FiX/></button>
             </div>
-            {courses.map((d, i) => (
-                <SemClass course={d} setCourses={setCourses}/>
+            {semState.courses.map((d, i) => (
+                <SemClass course={d} setAppState={setAppState} semId={semState.id}/>
             ))}
             <BigButton className="px-2 py-1 text-sm mt-3" onClick={() => setModalOpen(true)}>
                 <span>+ Add course</span>
@@ -33,11 +32,11 @@ export default function SemPos({semState, setAppState}: {semState: SemState, set
                 <UpperH className="mb-4">Add course</UpperH>
                 <input type="text" placeholder="Search for course" className="px-2 py-1 border border-gray-400 w-full text-sm"
                        value={search} onChange={e => setSearch(e.target.value)}/>
-                {fuzzysort.go(search, data.filter(d => !courses.includes(d.identifier)), {keys: ["title", "identifier"], limit: 10}).map(d => (
-                    <SemClass course={d.obj.identifier} key={d.obj.identifier} setCourses={setCourses} callback={() => {
+                {fuzzysort.go(search, data.filter(d => !semState.courses.includes(d.identifier)), {keys: ["title", "identifier"], limit: 10}).map(d => (
+                    <SemClass course={d.obj.identifier} key={d.obj.identifier} setAppState={setAppState} callback={() => {
                         setModalOpen(false);
                         setSearch("");
-                    }} isSearch={true}/>
+                    }} isSearch={true} semId={semState.id}/>
                 ))}
             </MyModal>
         </div>

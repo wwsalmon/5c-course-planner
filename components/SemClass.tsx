@@ -1,4 +1,4 @@
-import {Course} from "../pages";
+import {Course, SemState} from "../pages";
 import data from "../data_5scheduler.json";
 import {FiPlus, FiX} from "react-icons/fi";
 import {Dispatch, SetStateAction} from "react";
@@ -11,16 +11,26 @@ const colors = {
     ClaremontMckenna: "#98012E",
 }
 
-export default function SemClass({course, setCourses, callback, isSearch}: { course: Course, setCourses: Dispatch<SetStateAction<Course[]>>, callback?: () => void, isSearch?: boolean }) {
+export default function SemClass({course, setAppState, callback, isSearch, semId}: { course: Course, setAppState: Dispatch<SetStateAction<SemState[]>>, semId: string, callback?: () => void, isSearch?: boolean }) {
     const thisCourse = data.find(d => d.identifier === course);
 
     function onAdd() {
-        setCourses(prev => [...prev, course]);
+        setAppState(prev => {
+            let newAppState = [...prev];
+            const thisIndex = newAppState.findIndex(d => d.id === semId);
+            newAppState[thisIndex].courses.push(course);
+            return newAppState;
+        });
         if (callback) callback();
     }
 
     function onDelete() {
-        setCourses(prev => prev.filter(d => d !== course));
+        setAppState(prev => {
+            let newAppState = [...prev];
+            const thisIndex = newAppState.findIndex(d => d.id === semId);
+            newAppState[thisIndex].courses = newAppState[thisIndex].courses.filter(d => d !== course);
+            return newAppState;
+        });
     }
 
     return (
