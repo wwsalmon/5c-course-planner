@@ -1,7 +1,7 @@
 import SemCol from "../components/SemCol";
-import SemClass from "../components/SemClass";
-import SemPos from "../components/SemPos";
 import {useState} from "react";
+import Modal from "react-modal";
+import MyModal from "../components/MyModal";
 
 let thisYear = new Date().getFullYear();
 let thisMonth = new Date().getMonth() + 1;
@@ -22,7 +22,10 @@ export function decodeSemester(semNum: number) {
 
 type IdCourse = string;
 
-interface CustomCourse {id: string, title: string};
+interface CustomCourse {
+    id: string,
+    title: string
+};
 
 export type Course = IdCourse | CustomCourse;
 
@@ -35,38 +38,26 @@ export interface SemState {
 
 export default function Home() {
     const [appState, setAppState] = useState<SemState[]>([]);
+    const [aboutModalOpen, setAboutModalOpen] = useState<boolean>(false);
 
     return (
         <div className="max-w-full overflow-x-auto">
-            <div className="flex max-h-screen items-stretch">
+            <div className="fixed top-0 left-0 bg-[#222] border-b text-white border-gray-500 w-full px-4 py-2 flex">
+                <p className="text-sm opacity-50 font-semibold">5C Course Planner</p>
+                <button className="ml-auto text-sm opacity-50 hover:opacity-100"
+                        onClick={() => setAboutModalOpen(true)}>About
+                </button>
+                <MyModal isOpen={aboutModalOpen} setIsOpen={setAboutModalOpen}>
+                    <div className="w-72">
+                        <p className="text-2xl mb-4">Load your past courses and try future combinations.</p>
+                        <p>by samson zhang po '25</p>
+                    </div>
+                </MyModal>
+            </div>
+            <div className="flex max-h-screen items-stretch overflow-y-hidden">
                 {Array(5).fill(0).map((d, i) => firstSemester + i).map(d => (
                     <SemCol sem={d} key={d} dark={d < thisSemester} appState={appState} setAppState={setAppState}/>
                 ))}
-                {/*<SemCol title="F22" dark={true}>*/}
-                {/*    <SemPos title="Main">*/}
-                {/*        <SemClass id="MS 148 PO" title="Powers of Pleasure" bgColor="#8ae8e9"/>*/}
-                {/*        <SemClass id="ENGR 084 HM" title="Electronic and Magnet Circuits and Devices" bgColor="#8ae8e9"/>*/}
-                {/*        <SemClass id="MS 148 PO" title="Powers of Pleasure" bgColor="#8ae8e9"/>*/}
-                {/*        <SemClass id="MS 148 PO" title="Powers of Pleasure" bgColor="#8ae8e9"/>*/}
-                {/*    </SemPos>*/}
-                {/*    <SemPos title="Main">*/}
-                {/*        <SemClass id="MS 148 PO" title="Powers of Pleasure" bgColor="#8ae8e9"/>*/}
-                {/*        <SemClass id="MS 148 PO" title="Powers of Pleasure" bgColor="#8ae8e9"/>*/}
-                {/*        <SemClass id="MS 148 PO" title="Powers of Pleasure" bgColor="#8ae8e9"/>*/}
-                {/*        <SemClass id="MS 148 PO" title="Powers of Pleasure" bgColor="#8ae8e9"/>*/}
-                {/*    </SemPos>*/}
-                {/*    <SemPos title="Main">*/}
-                {/*        <SemClass id="MS 148 PO" title="Powers of Pleasure" bgColor="#8ae8e9"/>*/}
-                {/*        <SemClass id="MS 148 PO" title="Powers of Pleasure" bgColor="#8ae8e9"/>*/}
-                {/*        <SemClass id="MS 148 PO" title="Powers of Pleasure" bgColor="#8ae8e9"/>*/}
-                {/*        <SemClass id="MS 148 PO" title="Powers of Pleasure" bgColor="#8ae8e9"/>*/}
-                {/*    </SemPos>*/}
-                {/*</SemCol>*/}
-                {/*<SemCol title="S23">*/}
-                {/*    <SemPos title="Main">*/}
-                {/*        <SemClass id="MS 148 PO" title="Powers of Pleasure" bgColor="#8ae8e9"/>*/}
-                {/*    </SemPos>*/}
-                {/*</SemCol>*/}
             </div>
         </div>
     );

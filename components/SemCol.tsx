@@ -12,8 +12,8 @@ export default function SemCol({children, sem, dark, appState, setAppState}: {ch
     }
 
     return (
-        <div className={classNames("w-72 px-4 border-r overflow-y-auto py-6 flex-shrink-0", dark ? "border-gray-500" : "border-gray-300", dark && "bg-[#222]")}>
-            <h2 className={classNames("mb-8 text-4xl font-light opacity-50", dark && "text-white")}>{decodeSemester(sem)}</h2>
+        <div className={classNames("w-72 px-4 border-r overflow-y-auto py-6 flex-shrink-0 min-h-screen", dark ? "border-gray-500" : "border-gray-300", dark && "bg-[#222]")}>
+            <h2 className={classNames("mt-8 mb-8 text-3xl font-light opacity-50", dark && "text-white")}>{decodeSemester(sem)}</h2>
             {appState.filter(d => d.sem === sem).map(d => (
                 <SemPos semState={d} key={d.id} setAppState={setAppState}/>
             ))}
