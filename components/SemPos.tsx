@@ -1,9 +1,12 @@
-import {Dispatch, ReactNode, SetStateAction, useState} from "react";
+import {Dispatch, ReactNode, SetStateAction, useEffect, useRef, useState} from "react";
 import UpperH from "./UpperH";
 import BigButton from "./BigButton";
 import {Course, SemState} from "../pages";
 import SemClass from "./SemClass";
 import {FiX} from "react-icons/fi";
+import MyModal from "./MyModal";
+import data from "../data_5scheduler.json";
+import fuzzysort from "fuzzysort";
 
 export default function SemPos({semState, setAppState}: {semState: SemState, setAppState: Dispatch<SetStateAction<SemState[]>>}) {
     function onRemove() {
@@ -11,6 +14,8 @@ export default function SemPos({semState, setAppState}: {semState: SemState, set
     }
 
     const [courses, setCourses] = useState<Course[]>([]);
+    const [modalOpen, setModalOpen] = useState<boolean>(false);
+    const [search, setSearch] = useState<string>("");
 
     return (
         <div className="p-4 shadow-md bg-white w-full mb-6">
@@ -21,9 +26,16 @@ export default function SemPos({semState, setAppState}: {semState: SemState, set
             {semState.courses.map((d, i) => (
                 <SemClass course={d}/>
             ))}
-            <BigButton className="px-2 py-1 text-sm mt-3">
+            <BigButton className="px-2 py-1 text-sm mt-3" onClick={() => setModalOpen(true)}>
                 <span>+ Add course</span>
             </BigButton>
+            <MyModal isOpen={modalOpen} setIsOpen={setModalOpen}>
+                <input type="text" placeholder="Search for course" className="px-2 py-1 border border-gray-400 w-full text-sm"
+                       value={search} onChange={e => setSearch(e.target.value)}/>
+                {fuzzysort.go(search, data, {keys: ["title", "identifier"], limit: 10}).map(d => (
+                    <SemClass course={d.obj.identifier} key={d.obj.identifier}/>
+                ))}
+            </MyModal>
         </div>
     )
 }

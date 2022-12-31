@@ -48,10 +48,8 @@ export default function Home() {
                         onClick={() => setAboutModalOpen(true)}>About
                 </button>
                 <MyModal isOpen={aboutModalOpen} setIsOpen={setAboutModalOpen}>
-                    <div className="w-72">
-                        <p className="text-2xl mb-4">Load your past courses and try future combinations.</p>
-                        <p>by samson zhang po '25</p>
-                    </div>
+                    <p className="text-2xl mb-4">Load your past courses and try future combinations.</p>
+                    <p>by samson zhang po '25</p>
                 </MyModal>
             </div>
             <div className="flex max-h-screen items-stretch overflow-y-hidden">
