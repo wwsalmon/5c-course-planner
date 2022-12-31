@@ -2,6 +2,8 @@ import SemCol from "../components/SemCol";
 import {useState} from "react";
 import Modal from "react-modal";
 import MyModal from "../components/MyModal";
+import Link from "next/link";
+import Navbar from "../components/Navbar";
 
 let thisYear = new Date().getFullYear();
 let thisMonth = new Date().getMonth() + 1;
@@ -42,16 +44,7 @@ export default function Home() {
 
     return (
         <div className="max-w-full overflow-x-auto">
-            <div className="fixed top-0 left-0 bg-[#222] border-b text-white border-gray-500 w-full px-4 py-2 flex">
-                <p className="text-sm opacity-50 font-semibold">5C Course Planner</p>
-                <button className="ml-auto text-sm opacity-50 hover:opacity-100"
-                        onClick={() => setAboutModalOpen(true)}>About
-                </button>
-                <MyModal isOpen={aboutModalOpen} setIsOpen={setAboutModalOpen}>
-                    <p className="text-2xl mb-4">Load your past courses and try future combinations.</p>
-                    <p>by samson zhang po '25</p>
-                </MyModal>
-            </div>
+            <Navbar/>
             <div className="flex max-h-screen items-stretch overflow-y-hidden">
                 {Array(5).fill(0).map((d, i) => firstSemester + i).map(d => (
                     <SemCol sem={d} key={d} dark={d < thisSemester} appState={appState} setAppState={setAppState}/>
