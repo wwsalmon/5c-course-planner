@@ -23,8 +23,8 @@ export default function SemPos({semState, setAppState}: {semState: SemState, set
                 <UpperH className="opacity-50">{semState.title}</UpperH>
                 <button className="ml-auto opacity-50 hover:opacity-100" onClick={onRemove}><FiX/></button>
             </div>
-            {semState.courses.map((d, i) => (
-                <SemClass course={d}/>
+            {courses.map((d, i) => (
+                <SemClass course={d} setCourses={setCourses}/>
             ))}
             <BigButton className="px-2 py-1 text-sm mt-3" onClick={() => setModalOpen(true)}>
                 <span>+ Add course</span>
@@ -33,8 +33,11 @@ export default function SemPos({semState, setAppState}: {semState: SemState, set
                 <UpperH className="mb-4">Add course</UpperH>
                 <input type="text" placeholder="Search for course" className="px-2 py-1 border border-gray-400 w-full text-sm"
                        value={search} onChange={e => setSearch(e.target.value)}/>
-                {fuzzysort.go(search, data, {keys: ["title", "identifier"], limit: 10}).map(d => (
-                    <SemClass course={d.obj.identifier} key={d.obj.identifier}/>
+                {fuzzysort.go(search, data.filter(d => !courses.includes(d.identifier)), {keys: ["title", "identifier"], limit: 10}).map(d => (
+                    <SemClass course={d.obj.identifier} key={d.obj.identifier} setCourses={setCourses} callback={() => {
+                        setModalOpen(false);
+                        setSearch("");
+                    }} isSearch={true}/>
                 ))}
             </MyModal>
         </div>
