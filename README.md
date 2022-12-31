@@ -1,9 +1,5 @@
-# Next Tailwind Typescript Example
+# 5c course planner
 
-Use with `create-next-app`: `npx create-next-app -e https://github.com/wwsalmon/next-tailwind-typescript-example`
+multi-semester planner for claremont colleges courses
 
-Compared to the default `create-next-app`, this example:
-- Has Typescript and TailwindCSS pre-configured
-- Has default `index.js`, `Home.module.css`, `pages/api/`, and `public/` stripped out
-- Has `_document.tsx` pre-configured
-- Adds `.env` to `.gitignore`
+in development -- built using nextjs. clone locally + `npm run dev` + go to `localhost:3000` to develop
