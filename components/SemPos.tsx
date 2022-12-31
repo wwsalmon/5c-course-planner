@@ -30,6 +30,7 @@ export default function SemPos({semState, setAppState}: {semState: SemState, set
                 <span>+ Add course</span>
             </BigButton>
             <MyModal isOpen={modalOpen} setIsOpen={setModalOpen}>
+                <UpperH className="mb-4">Add course</UpperH>
                 <input type="text" placeholder="Search for course" className="px-2 py-1 border border-gray-400 w-full text-sm"
                        value={search} onChange={e => setSearch(e.target.value)}/>
                 {fuzzysort.go(search, data, {keys: ["title", "identifier"], limit: 10}).map(d => (
