@@ -1,8 +1,6 @@
 import SemCol from "../components/SemCol";
 import {useEffect, useRef, useState} from "react";
 import Modal from "react-modal";
-import MyModal from "../components/MyModal";
-import Link from "next/link";
 import Navbar from "../components/Navbar";
 
 let thisYear = new Date().getFullYear();
@@ -38,6 +36,8 @@ export interface SemState {
     courses: Course[],
 }
 
+Modal.setAppElement('#main');
+
 export default function Home() {
     const [appState, setAppState] = useState<SemState[]>([]);
     const loaded = useRef<boolean>(false);
@@ -52,7 +52,7 @@ export default function Home() {
     }, [appState]);
 
     return (
-        <div className="max-w-full overflow-x-auto">
+        <div className="max-w-full overflow-x-auto" id="main">
             <Navbar/>
             <div className="flex max-h-screen items-stretch overflow-y-hidden">
                 {Array(5).fill(0).map((d, i) => firstSemester + i).map(d => (

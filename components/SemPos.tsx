@@ -23,7 +23,7 @@ export default function SemPos({semState, setAppState}: {semState: SemState, set
                 <button className="ml-auto opacity-50 hover:opacity-100" onClick={onRemove}><FiX/></button>
             </div>
             {semState.courses.map((d, i) => (
-                <SemClass course={d} setAppState={setAppState} semId={semState.id}/>
+                <SemClass course={d} setAppState={setAppState} semId={semState.id} key={typeof d === "string" ? d : d.id}/>
             ))}
             <BigButton className="px-2 py-1 text-sm mt-3" onClick={() => setModalOpen(true)}>
                 <span>+ Add course</span>
