@@ -1,5 +1,5 @@
 import SemCol from "../components/SemCol";
-import {useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import Modal from "react-modal";
 import MyModal from "../components/MyModal";
 import Link from "next/link";
@@ -40,7 +40,16 @@ export interface SemState {
 
 export default function Home() {
     const [appState, setAppState] = useState<SemState[]>([]);
-    const [aboutModalOpen, setAboutModalOpen] = useState<boolean>(false);
+    const loaded = useRef<boolean>(false);
+
+    useEffect(() => {
+        setAppState(JSON.parse(window.localStorage.getItem("5c-course-planner-appstate")));
+        loaded.current = true;
+    }, []);
+
+    useEffect(() => {
+        if (loaded.current) window.localStorage.setItem("5c-course-planner-appstate", JSON.stringify(appState));
+    }, [appState]);
 
     return (
         <div className="max-w-full overflow-x-auto">
