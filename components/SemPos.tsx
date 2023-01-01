@@ -40,7 +40,16 @@ export default function SemPos({semState, setAppState}: {semState: SemState, set
     return (
         <div className="p-4 shadow-md bg-white w-full mb-6">
             <div className="flex items-center">
-                <UpperH className="opacity-50">{semState.title}</UpperH>
+                <UpperH className="opacity-50">
+                    <input type="text" className="uppercase" value={semState.title} onChange={e => {
+                        setAppState(prev => {
+                            let newAppState = [...prev];
+                            const thisIndex = newAppState.findIndex(d => d.id === semState.id);
+                            newAppState[thisIndex].title = e.target.value;
+                            return newAppState;
+                        });
+                    }}/>
+                </UpperH>
                 <button className="ml-auto opacity-50 hover:opacity-100" onClick={onRemove}><FiX/></button>
             </div>
             {semState.courses.map((d, i) => (
