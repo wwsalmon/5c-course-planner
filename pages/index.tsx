@@ -46,7 +46,7 @@ export default function Home() {
     const loaded = useRef<boolean>(false);
 
     useEffect(() => {
-        setAppState(JSON.parse(window.localStorage.getItem("5c-course-planner-appstate")));
+        setAppState(JSON.parse(window.localStorage.getItem("5c-course-planner-appstate")) || []);
         loaded.current = true;
     }, []);
 

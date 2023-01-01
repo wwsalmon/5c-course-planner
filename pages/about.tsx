@@ -1,5 +1,4 @@
 import UpperH from "../components/UpperH";
-import Link from "next/link";
 import Navbar from "../components/Navbar";
 import Head from "next/head";
 
