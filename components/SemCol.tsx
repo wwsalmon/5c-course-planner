@@ -9,6 +9,8 @@ import {FiX} from "react-icons/fi";
 
 export default function SemCol({children, sem, dark, appState, setAppState, sems, setSems}: {children?: ReactNode, sem: number, dark?: boolean, appState: SemState[], setAppState: Dispatch<SetStateAction<SemState[]>>, sems: number[], setSems: Dispatch<SetStateAction<number[]>>}) {
     function addPos() {
+        // @ts-ignore
+        window.umami && window.umami("Add possibility");
         setAppState(prev => [...prev, {title: "Untitled", sem, id: short.generate(), courses: []}]);
     }
 
@@ -17,7 +19,11 @@ export default function SemCol({children, sem, dark, appState, setAppState, sems
             <div className="flex items-center mt-8 mb-8">
                 <h2 className={classNames("text-3xl font-light opacity-50", dark && "text-white")}>{decodeSemester(sem)}</h2>
                 {[sems[0], sems[sems.length - 1]].includes(sem) && (
-                    <button className={classNames("ml-auto opacity-50 hover:opacity-100 text-gray-500")} onClick={() => setSems(prev => prev.filter(d => d !== sem))}><FiX/></button>
+                    <button className={classNames("ml-auto opacity-50 hover:opacity-100 text-gray-500")} onClick={() => {
+                        setSems(prev => prev.filter(d => d !== sem));
+                        // @ts-ignore
+                        window.umami && window.umami("Remove semester");
+                    }}><FiX/></button>
                 )}
             </div>
             {appState.filter(d => d.sem === sem).map(d => (

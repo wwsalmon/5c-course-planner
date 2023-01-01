@@ -76,11 +76,19 @@ export default function Home() {
             </Head>
             <Navbar/>
             <div className="flex max-h-screen items-stretch overflow-y-hidden">
-                <AddCol dark={true} onClick={() => setSems(prev => [prev[0] - 1, ...prev])}/>
+                <AddCol dark={true} onClick={() => {
+                    setSems(prev => [prev[0] - 1, ...prev]);
+                    // @ts-ignore
+                    window.umami && window.umami("Add previous semester");
+                }}/>
                 {sems.map(d => (
                     <SemCol sem={d} key={d} dark={d < thisSemester} appState={appState} setAppState={setAppState} sems={sems} setSems={setSems}/>
                 ))}
-                <AddCol onClick={() => setSems(prev => [...prev, prev[prev.length - 1] + 1])}/>
+                <AddCol onClick={() => {
+                    setSems(prev => [...prev, prev[prev.length - 1] + 1]);
+                    // @ts-ignore
+                    window.umami && window.umami("Add later semester");
+                }}/>
             </div>
             {newUser.current && (
                 <MyModal isOpen={isModalOpen} setIsOpen={setIsModalOpen}>

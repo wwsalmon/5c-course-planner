@@ -25,6 +25,9 @@ export default function SemClass({course, setAppState, callback, isSearch, semId
             return newAppState;
         });
         if (callback) callback();
+
+        // @ts-ignore
+        window.umami && window.umami("Add catalog course");
     }
 
     function onDelete() {
@@ -34,6 +37,9 @@ export default function SemClass({course, setAppState, callback, isSearch, semId
             newAppState[thisIndex].courses = newAppState[thisIndex].courses.filter(d => d !== course);
             return newAppState;
         });
+
+        // @ts-ignore
+        window.umami && window.umami("Remove course");
     }
 
     useEffect(() => {

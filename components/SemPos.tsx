@@ -11,6 +11,8 @@ import classNames from "classnames";
 
 export default function SemPos({semState, setAppState}: {semState: SemState, setAppState: Dispatch<SetStateAction<SemState[]>>}) {
     function onRemove() {
+        // @ts-ignore
+        window.umami && window.umami("Remove possibility");
         setAppState(prev => prev.filter(d => d.id !== semState.id));
     }
 
@@ -30,6 +32,8 @@ export default function SemPos({semState, setAppState}: {semState: SemState, set
             newAppState[thisIndex].courses.push({title, identifier: id, source, custom: true});
             return newAppState;
         });
+        // @ts-ignore
+        window.umami && window.umami("Add custom course");
 
         setModalOpen(false);
         setTitle("");
@@ -55,7 +59,11 @@ export default function SemPos({semState, setAppState}: {semState: SemState, set
             {semState.courses.map((d, i) => (
                 <SemClass course={d} setAppState={setAppState} semId={semState.id} key={typeof d === "string" ? d : d.identifier}/>
             ))}
-            <BigButton className="px-2 py-1 text-sm mt-3" onClick={() => setModalOpen(true)}>
+            <BigButton className="px-2 py-1 text-sm mt-3" onClick={() => {
+                setModalOpen(true);
+                // @ts-ignore
+                window.umami && window.umami("Open add course modal");
+            }}>
                 <span>+ Add course</span>
             </BigButton>
             <MyModal isOpen={modalOpen} setIsOpen={setModalOpen}>
