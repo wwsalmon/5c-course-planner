@@ -3,6 +3,8 @@ import {useEffect, useRef, useState} from "react";
 import Modal from "react-modal";
 import Navbar from "../components/Navbar";
 import Head from "next/head";
+import {FiPlus} from "react-icons/fi";
+import AddCol from "../components/AddCol";
 
 let thisYear = new Date().getFullYear();
 let thisMonth = new Date().getMonth() + 1;
@@ -15,7 +17,8 @@ if (thisMonth === 12) {
 const thisSeason = +(thisMonth > 4);
 const thisSemester = 2 * thisYear + thisSeason;
 const firstSemester = thisSemester - 2;
-const lastSemester = thisSemester + 2;
+
+const initialSems = Array(5).fill(0).map((d, i) => firstSemester + i);
 
 export function decodeSemester(semNum: number) {
     return (semNum % 2 ? "F" : "S") + (Math.floor(semNum / 2)).toString().substring(2);
@@ -43,16 +46,22 @@ Modal.setAppElement('#main');
 
 export default function Home() {
     const [appState, setAppState] = useState<SemState[]>([]);
+    const [sems, setSems] = useState<number[]>([]);
     const loaded = useRef<boolean>(false);
 
     useEffect(() => {
         setAppState(JSON.parse(window.localStorage.getItem("5c-course-planner-appstate")) || []);
+        setSems(JSON.parse(window.localStorage.getItem("5c-course-planner-sems")) || initialSems);
         loaded.current = true;
     }, []);
 
     useEffect(() => {
         if (loaded.current) window.localStorage.setItem("5c-course-planner-appstate", JSON.stringify(appState));
     }, [appState]);
+
+    useEffect(() => {
+        if (loaded.current) window.localStorage.setItem("5c-course-planner-sems", JSON.stringify(sems));
+    }, [sems]);
 
     return (
         <div className="max-w-full overflow-x-auto" id="main">
@@ -61,9 +70,11 @@ export default function Home() {
             </Head>
             <Navbar/>
             <div className="flex max-h-screen items-stretch overflow-y-hidden">
-                {Array(5).fill(0).map((d, i) => firstSemester + i).map(d => (
-                    <SemCol sem={d} key={d} dark={d < thisSemester} appState={appState} setAppState={setAppState}/>
+                <AddCol dark={true} onClick={() => setSems(prev => [prev[0] - 1, ...prev])}/>
+                {sems.map(d => (
+                    <SemCol sem={d} key={d} dark={d < thisSemester} appState={appState} setAppState={setAppState} sems={sems} setSems={setSems}/>
                 ))}
+                <AddCol onClick={() => setSems(prev => [...prev, prev[prev.length - 1] + 1])}/>
             </div>
         </div>
     );
