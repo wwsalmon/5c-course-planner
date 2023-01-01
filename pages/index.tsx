@@ -2,6 +2,7 @@ import SemCol from "../components/SemCol";
 import {useEffect, useRef, useState} from "react";
 import Modal from "react-modal";
 import Navbar from "../components/Navbar";
+import Head from "next/head";
 
 let thisYear = new Date().getFullYear();
 let thisMonth = new Date().getMonth() + 1;
@@ -55,6 +56,9 @@ export default function Home() {
 
     return (
         <div className="max-w-full overflow-x-auto" id="main">
+            <Head>
+                <title>5Planner - course planner for the Claremont Colleges</title>
+            </Head>
             <Navbar/>
             <div className="flex max-h-screen items-stretch overflow-y-hidden">
                 {Array(5).fill(0).map((d, i) => firstSemester + i).map(d => (

@@ -1,10 +1,14 @@
 import UpperH from "../components/UpperH";
 import Link from "next/link";
 import Navbar from "../components/Navbar";
+import Head from "next/head";
 
 export default function About() {
     return (
         <div className="max-w-2xl mx-auto py-8 px-4">
+            <Head>
+                <title>About 5Planner</title>
+            </Head>
             <Navbar isAbout={true}/>
             <UpperH className="mt-16 mb-4">About</UpperH>
             <h1 className="text-8xl font-light opacity-50 mb-8">5C Course Planner</h1>
