@@ -5,6 +5,8 @@ import Navbar from "../components/Navbar";
 import Head from "next/head";
 import {FiPlus} from "react-icons/fi";
 import AddCol from "../components/AddCol";
+import MyModal from "../components/MyModal";
+import BigButton from "../components/BigButton";
 
 let thisYear = new Date().getFullYear();
 let thisMonth = new Date().getMonth() + 1;
@@ -48,9 +50,13 @@ export default function Home() {
     const [appState, setAppState] = useState<SemState[]>([]);
     const [sems, setSems] = useState<number[]>([]);
     const loaded = useRef<boolean>(false);
+    const newUser = useRef<boolean>(false);
+    const [isModalOpen, setIsModalOpen] = useState<boolean>(true);
 
     useEffect(() => {
-        setAppState(JSON.parse(window.localStorage.getItem("5c-course-planner-appstate")) || []);
+        const localAppState = window.localStorage.getItem("5c-course-planner-appstate");
+        if (!localAppState || !JSON.parse(localAppState).length ) newUser.current = true;
+        setAppState(JSON.parse(localAppState) || []);
         setSems(JSON.parse(window.localStorage.getItem("5c-course-planner-sems")) || initialSems);
         loaded.current = true;
     }, []);
@@ -76,6 +82,15 @@ export default function Home() {
                 ))}
                 <AddCol onClick={() => setSems(prev => [...prev, prev[prev.length - 1] + 1])}/>
             </div>
+            {newUser.current && (
+                <MyModal isOpen={isModalOpen} setIsOpen={setIsModalOpen}>
+                    <p className="text-xl font-bold">Welcome to 5Planner!</p>
+                    <video src="/demo.mp4" autoPlay={true} muted={true} loop={true} className="my-4 rounded shadow-md"></video>
+                    <p>Course planning is hard! Use 5Planner to make lists of possible future classes to help.</p>
+                    <p className="text-xs mt-3">General and major requirements coming eventually</p>
+                    <button className="p-2 w-full text-white bg-[#222] hover:bg-black text-sm mt-6" onClick={() => setIsModalOpen(false)}>Get started</button>
+                </MyModal>
+            )}
         </div>
     );
 }

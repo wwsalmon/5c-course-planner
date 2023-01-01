@@ -15,6 +15,7 @@ export default function About() {
                 <img src="/sz.jpg" alt="Photo of Samson Zhang" className="w-12 h-12 rounded-full mr-6"/>
                 <code>hi i'm samson [they/them] (po25)! thanks for checking out my app</code>
             </div>
+            <video src="/demo.mp4" autoPlay={true} muted={true} loop={true} className="my-8 rounded shadow-md"></video>
             <div className="prose mt-16">
                 <h2>Why did you make this?</h2>
                 <p>I was trying to figure out what classes to take next semester and it was hard :( so I made this instead of actually figuring it out</p>
