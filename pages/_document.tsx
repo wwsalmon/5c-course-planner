@@ -11,6 +11,7 @@ class MyDocument extends Document {
             <Html>
                 <Head>
                     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+                    <script async defer data-website-id="92eb671d-64c2-4b0d-b65d-79667023d5f4" src="https://umami-production-0077.up.railway.app/umami.js"/>
                 </Head>
                 <body>
                 <Main/>
