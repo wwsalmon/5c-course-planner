@@ -26,6 +26,7 @@ interface CustomCourse {
     identifier: string,
     title: string,
     source: string,
+    custom: true,
 };
 
 export type Course = IdCourse | CustomCourse;

@@ -27,7 +27,7 @@ export default function SemPos({semState, setAppState}: {semState: SemState, set
         setAppState(prev => {
             let newAppState = [...prev];
             const thisIndex = newAppState.findIndex(d => d.id === semState.id);
-            newAppState[thisIndex].courses.push({title, identifier: id, source});
+            newAppState[thisIndex].courses.push({title, identifier: id, source, custom: true});
             return newAppState;
         });
 
