@@ -2,13 +2,9 @@ import {Dispatch, SetStateAction, useState} from "react";
 import UpperH from "./UpperH";
 import BigButton from "./BigButton";
 import {CourseKey, SemState} from "../pages";
-import SemCourse, {colors} from "./SemCourse";
+import SemCourse from "./SemCourse";
 import {FiX} from "react-icons/fi";
-import MyModal from "./MyModal";
-import data from "../data_5scheduler.json";
-import fuzzysort from "fuzzysort";
-import classNames from "classnames";
-import Input from "./Input";
+import AddCourseModal from "./AddCourseModal";
 
 export default function SemPos({semState, setAppState}: {semState: SemState, setAppState: Dispatch<SetStateAction<SemState[]>>}) {
     function onRemove() {
@@ -18,15 +14,8 @@ export default function SemPos({semState, setAppState}: {semState: SemState, set
     }
 
     const [modalOpen, setModalOpen] = useState<boolean>(false);
-    const [search, setSearch] = useState<string>("");
-    const [isCustom, setIsCustom] = useState<boolean>(false);
-    const [title, setTitle] = useState<string>("");
-    const [id, setId] = useState<string>("");
-    const [source, setSource] = useState<string>("");
 
-    const canAddCustom = id && title && source;
-
-    function onAddCustom() {
+    function onAddCustom(title: string, id: string, source: string) {
         setAppState(prev => {
             let newAppState = [...prev];
             const thisIndex = newAppState.findIndex(d => d.id === semState.id);
@@ -37,9 +26,6 @@ export default function SemPos({semState, setAppState}: {semState: SemState, set
         window.umami && window.umami("Add custom course");
 
         setModalOpen(false);
-        setTitle("");
-        setId("");
-        setSource("");
     }
 
     function onAdd(courseKey: CourseKey) {
@@ -50,7 +36,6 @@ export default function SemPos({semState, setAppState}: {semState: SemState, set
             return newAppState;
         });
         setModalOpen(false);
-        setSearch("");
 
         // @ts-ignore
         window.umami && window.umami("Add catalog course");
@@ -93,35 +78,8 @@ export default function SemPos({semState, setAppState}: {semState: SemState, set
             }}>
                 <span>+ Add course</span>
             </BigButton>
-            <MyModal isOpen={modalOpen} setIsOpen={setModalOpen}>
-                <UpperH className="mb-4">Add course</UpperH>
-                <div className="flex items-center text-sm mb-4">
-                    <button className={classNames("w-1/2 pb-1", !isCustom && "font-bold border-b border-black")} onClick={() => setIsCustom(false)}>Catalog</button>
-                    <button className={classNames("w-1/2 pb-1", isCustom && "font-bold border-b border-black")} onClick={() => setIsCustom(true)}>Custom</button>
-                </div>
-                {isCustom ? (
-                    <>
-                        <Input placeholder="Course ID" value={id} onChange={e => setId(e.target.value)}/>
-                        <Input placeholder="Course name" value={title} onChange={e => setTitle(e.target.value)}/>
-                        <div className="flex items-center mb-4">
-                            <label className="text-xs opacity-75 mr-4">School</label>
-                            {Object.entries(colors).map(d => (
-                                <button className={classNames("w-6 h-6 mr-2 text-white text-xs transition", d[0] === source ? "transform scale-110" : "opacity-50 hover:opacity-80")} style={{backgroundColor: d[1]}} key={d[0]} onClick={() => setSource(d[0])}>
-                                    {d[0].substring(0,2)}
-                                </button>
-                            ))}
-                        </div>
-                        <button disabled={!canAddCustom} className={classNames("w-full py-1 text-sm disabled:opacity-50 bg-[#222] text-white", canAddCustom && "hover:bg-black")} onClick={onAddCustom}>Add course</button>
-                    </>
-                ) : (
-                    <>
-                        <Input placeholder="Search by name or code" value={search} onChange={e => setSearch(e.target.value)}/>
-                        {fuzzysort.go(search, data.filter(d => !semState.courses.includes(d.identifier)), {keys: ["title", "identifier"], limit: 10}).map(d => (
-                            <SemCourse courseKey={d.obj.identifier} key={d.obj.identifier} onAdd={onAdd}/>
-                        ))}
-                    </>
-                )}
-            </MyModal>
+            <AddCourseModal isOpen={modalOpen} setIsOpen={setModalOpen} onAdd={onAdd} onAddCustom={onAddCustom}
+                            existingList={semState.courses}/>
         </div>
     )
 }
