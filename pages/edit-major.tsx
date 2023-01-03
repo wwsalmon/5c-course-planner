@@ -4,6 +4,9 @@ import BigButton from "../components/BigButton";
 import {FiX} from "react-icons/fi";
 import classNames from "classnames";
 import {Req, ReqSet} from "../components/Major";
+import AddCourseModal from "../components/AddCourseModal";
+import MajorCourse from "../components/MajorCourse";
+import SemCourse from "../components/SemCourse";
 
 function Label(props: ComponentProps<"label">) {
     let thisProps = {...props};
@@ -29,6 +32,7 @@ export default function EditMajor() {
     const [websites, setWebsites] = useState<string[]>([]);
     const [reqs, setReqs] = useState<Req[]>([]);
     const [reqSets, setReqSets] = useState<ReqSet[]>([]);
+    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
     return (
         <div className="p-4 max-w-3xl mx-auto">
@@ -70,7 +74,31 @@ export default function EditMajor() {
                         return newReqs;
                     })}/>
                     <label className="font-medium mb-2 text-sm block">Courses that satisfy this requirement</label>
-                    <AdminButton>+ Add course</AdminButton>
+                    <AdminButton onClick={() => setIsModalOpen(true)}>+ Add course</AdminButton>
+                    <AddCourseModal isOpen={isModalOpen} setIsOpen={setIsModalOpen} onAdd={courseKey => {
+                        setReqs(prev => {
+                            let newReqs = [...prev];
+                            newReqs[i].options.push(courseKey);
+                            return newReqs;
+                        });
+                        setIsModalOpen(false);
+                    }} onAddCustom={(title, id, source) => {
+                        setReqs(prev => {
+                            let newReqs = [...prev];
+                            newReqs[i].options.push({title, identifier: id, source, custom: true});
+                            return newReqs;
+                        });
+                        setIsModalOpen(false);
+                    }} existingList={d.options}/>
+                    {d.options.map(x => (
+                        <SemCourse courseKey={x} onDelete={(courseKey) => {
+                            setReqs(prev => {
+                                let newReqs = [...prev];
+                                newReqs[i].options = newReqs[i].options.filter(y => (typeof y === "string" ? y : y.identifier) !== (typeof courseKey === "string" ? courseKey : courseKey.identifier));
+                                return newReqs;
+                            });
+                        }}/>
+                    ))}
                 </div>
             ))}
             <AdminButton onClick={() => setReqs(prev => [...prev, {name: "", number: 0, options: []}])}>+ Add requirement section</AdminButton>

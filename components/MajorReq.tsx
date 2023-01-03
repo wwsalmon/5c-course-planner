@@ -21,7 +21,7 @@ export default function MajorReq({thisReq, appState, isSub}: {thisReq: Req, appS
             <button className="flex items-center w-full text-left my-6" disabled={isSub} onClick={() => setIsOpen(prev => !prev)}>
                 <div>
                     <p className={classNames("text-sm font-bold", !isSub && "uppercase")}>{thisReq.name}</p>
-                    <p className="text-sm opacity-50">{numCompleted}/{thisReq.number} completed {isComplete ? "✅" : `| ${thisReq.options.reduce((a, b) => a + (b.substring(0, 1) === "^" ? data.filter(x => x.identifier.match(b)).length : 1), 0)} options`}</p>
+                    <p className="text-sm opacity-50">{numCompleted}/{thisReq.number} completed {isComplete ? "✅" : `| ${thisReq.options.reduce((a, b) => a + ((typeof b === "string" && b.substring(0, 1) === "^") ? data.filter(x => x.identifier.match(b)).length : 1), 0)} options`}</p>
                 </div>
                 {!isSub && (
                     <span className="flex-shrink-0 ml-auto pl-2">
@@ -32,8 +32,8 @@ export default function MajorReq({thisReq, appState, isSub}: {thisReq: Req, appS
             {(isOpen || isSub) && (
                 <>
                     {thisReq.options.map(d => (
-                        <Fragment key={d}>
-                            {d.substring(0,1) === "^" ? data.filter(x => x.identifier.match(d)).map(course => (
+                        <Fragment key={typeof d === "string" ? d : d.identifier}>
+                            {(typeof d === "string" && d.substring(0,1) === "^") ? data.filter(x => x.identifier.match(d)).map(course => (
                                 <MajorCourse courseKey={course.identifier} appState={appState}/>
                             )) : (
                                 <MajorCourse courseKey={d} appState={appState}/>

@@ -8,7 +8,7 @@ import data from "../data_5scheduler.json";
 import MyModal from "./MyModal";
 import {CourseKey} from "../pages";
 
-export default function AddCourseModal({isOpen, setIsOpen, onAddCustom, onAdd, existingList}: {isOpen: boolean, setIsOpen: Dispatch<SetStateAction<boolean>>, onAdd: (courseKey: CourseKey) => void, onAddCustom: (title: string, id: string, source: string) => void, existingList: CourseKey[]}) {
+export default function AddCourseModal({isOpen, setIsOpen, onAddCustom, onAdd, existingList}: {isOpen: boolean, setIsOpen: Dispatch<SetStateAction<boolean>>, onAdd: (courseKey: string) => void, onAddCustom: (title: string, id: string, source: string) => void, existingList: CourseKey[]}) {
     const [search, setSearch] = useState<string>("");
     const [tab, setTab] = useState<string>("Catalog");
     const [title, setTitle] = useState<string>("");
@@ -30,7 +30,7 @@ export default function AddCourseModal({isOpen, setIsOpen, onAddCustom, onAdd, e
                     <>
                         <Input placeholder="Search by name or code" value={search} onChange={e => setSearch(e.target.value)}/>
                         {fuzzysort.go(search, data.filter(d => !existingList.includes(d.identifier)), {keys: ["title", "identifier"], limit: 10}).map(d => (
-                            <SemCourse courseKey={d.obj.identifier} key={d.obj.identifier} onAdd={(courseKey: CourseKey) => {
+                            <SemCourse courseKey={d.obj.identifier} key={d.obj.identifier} onAdd={(courseKey: string) => {
                                 onAdd(courseKey);
                                 setSearch("");
                             }}/>

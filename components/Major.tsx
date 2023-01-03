@@ -2,7 +2,7 @@ import {Dispatch, SetStateAction, Fragment, useState} from "react";
 import majors from "../majors.json";
 import {FiX} from "react-icons/fi";
 import MajorReq from "./MajorReq";
-import {SemState} from "../pages";
+import {CourseKey, SemState} from "../pages";
 import MajorReqSet from "./MajorReqSet";
 
 export interface Major {
@@ -19,7 +19,7 @@ export interface ReqSet {
 export interface Req {
     name: string,
     number: number,
-    options: string[],
+    options: CourseKey[],
 }
 
 export default function Major({name, setSelectedMajors, appState}: {name: string, setSelectedMajors: Dispatch<SetStateAction<string[]>>, appState: SemState[]}) {
