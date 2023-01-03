@@ -162,6 +162,78 @@
         "options": [
           "PHYS-128-PO"
         ]
+      },
+      {
+        "name": "Core classes",
+        "number": 3,
+        "options": [
+          "PHYS-125-PO",
+          "PHYS-142-PO",
+          "PHYS-170-PO",
+          "PHYS-175-PO"
+        ]
+      },
+      {
+        "name": "Junior lab",
+        "number": 1,
+        "options": ["PHYS-174-PO"]
+      },
+      {
+        "name": "Senior classes",
+        "number": 3,
+        "options": ["PHYS-190-PO", "PHYS-191-PO", "PHYS-193-PO"]
+      }
+    ]
+  },
+  {
+    "name": "Pomona Economics major",
+    "websites": [
+
+    ],
+    "reqs": [
+      {
+        "name": "Intro",
+        "number": 3,
+        "options": [
+          "ECON-051-PO", "ECON-052-PO", "ECON-057-PO"
+        ]
+      },
+      {
+        "name": "Theory classes",
+        "number": 2,
+        "options": [
+          "ECON-101-PO", "ECON-102-PO"
+        ]
+      },
+      {
+        "overallName": "Econometrics",
+        "options": [
+          {
+            "name": "Applied econometrics",
+            "number": 1,
+            "options": ["ECON-101-PO"]
+          },
+          {
+            "name": "Econometrics",
+            "number": 1,
+            "options": ["ECON-167-PO"]
+          }
+        ]
+      },
+      {
+        "name": "Five classes above 115",
+        "number": 5,
+        "options": ["^ECON-1[1-9]\\d(.*)-PO"]
+      },
+      {
+        "name": "Two classes above 150",
+        "number": 2,
+        "options": ["^ECON-1[5-9]\\d(.*)-PO"]
+      },
+      {
+        "name": "Senior classes",
+        "number": 2,
+        "options": ["ECON-190-PO", "ECON-195-PO"]
       }
     ]
   }
