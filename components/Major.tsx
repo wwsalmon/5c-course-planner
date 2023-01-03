@@ -29,7 +29,7 @@ export default function Major({name, setSelectedMajors, appState}: {name: string
 
     return (
         <div className="p-2 bg-white my-4">
-            <div className="flex items-center" onClick={() => setIsOpen(prev => !prev)}>
+            <div className="flex items-center cursor-pointer" onClick={() => setIsOpen(prev => !prev)}>
                 <p className="text-lg font-bold leading-tight">{thisMajor.name}</p>
                 <button className="ml-auto" onClick={() => setSelectedMajors(prev => prev.filter(d => d !== name))}><FiX/></button>
             </div>
