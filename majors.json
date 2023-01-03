@@ -34,7 +34,8 @@
           "MS-059-SC",
           "MS-159-SC",
           "MS-082-PZ",
-          "MS-182-HM"
+          "MS-182-HM",
+          "MS-093-PZ"
         ]
       },
       {
@@ -110,6 +111,7 @@
           "MS-147H-PO",
           "MS-148B-PO",
           "MS-148C-PO",
+          "MS-148D-PO",
           "MS-149-PO",
           "MS-149E-PO",
           "MS-149F-PO",
@@ -120,7 +122,9 @@
       {
         "name": "Two additional approved media studies courses",
         "number": 2,
-        "options": []
+        "options": [
+          "^MS-"
+        ]
       }
     ]
   },

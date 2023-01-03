@@ -29,13 +29,18 @@ export default function Major({name, setSelectedMajors, appState}: {name: string
     return (
         <div className="p-2 bg-white my-4">
             <div className="flex items-center">
-                <p>{thisMajor.name}</p>
+                <p className="text-lg font-bold leading-tight">{thisMajor.name}</p>
                 <button className="ml-auto" onClick={() => setSelectedMajors(prev => prev.filter(d => d !== name))}><FiX/></button>
             </div>
-            {thisMajor.reqs.map(d => (
+            {thisMajor.reqs.map((d, i) => (
                 <Fragment key={"name" in d ? d.name : d.overallName}>
                     {"name" in d ? (
-                        <MajorReq thisReq={d} appState={appState}/>
+                        <>
+                            {i !== 0 && (
+                                <hr className="my-6"/>
+                            )}
+                            <MajorReq thisReq={d} appState={appState}/>
+                        </>
                     ) : (
                         <p>bs</p>
                     )}
