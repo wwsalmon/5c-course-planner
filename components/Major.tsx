@@ -24,28 +24,32 @@ export interface Req {
 export default function Major({name, setSelectedMajors, appState}: {name: string, setSelectedMajors: Dispatch<SetStateAction<string[]>>, appState: SemState[]}) {
     const thisMajor: Major = majors.find(d => d.name === name);
 
-    const [isOpen, setIsOpen] = useState<boolean>(false);
+    const [isOpen, setIsOpen] = useState<boolean>(true);
 
     return (
         <div className="p-2 bg-white my-4">
-            <div className="flex items-center">
+            <div className="flex items-center cursor-pointer" onClick={() => setIsOpen(prev => !prev)}>
                 <p className="text-lg font-bold leading-tight">{thisMajor.name}</p>
                 <button className="ml-auto" onClick={() => setSelectedMajors(prev => prev.filter(d => d !== name))}><FiX/></button>
             </div>
-            {thisMajor.reqs.map((d, i) => (
-                <Fragment key={"name" in d ? d.name : d.overallName}>
-                    {"name" in d ? (
-                        <>
-                            {i !== 0 && (
-                                <hr className="my-6"/>
+            {isOpen && (
+                <>
+                    {thisMajor.reqs.map((d, i) => (
+                        <Fragment key={"name" in d ? d.name : d.overallName}>
+                            {"name" in d ? (
+                                <>
+                                    {i !== 0 && (
+                                        <hr className="my-6"/>
+                                    )}
+                                    <MajorReq thisReq={d} appState={appState}/>
+                                </>
+                            ) : (
+                                <p>bs</p>
                             )}
-                            <MajorReq thisReq={d} appState={appState}/>
-                        </>
-                    ) : (
-                        <p>bs</p>
-                    )}
-                </Fragment>
-            ))}
+                        </Fragment>
+                    ))}
+                </>
+            )}
         </div>
     )
 }
