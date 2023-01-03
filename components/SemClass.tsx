@@ -60,7 +60,9 @@ export default function SemClass({course, setAppState, callback, isSearch, semId
             }}>
                 <div className="w-full flex-shrink min-w-0">
                     <p className="font-bold opacity-75">{thisCourse.identifier}</p>
-                    <p className="truncate opacity-75">{thisCourse.title}</p>
+                    {!isOpen && (
+                        <p className="truncate opacity-75">{thisCourse.title}</p>
+                    )}
                 </div>
                 <button className="ml-auto pl-2 flex-shrink-0 opacity-50 hover:opacity-100" onClick={isSearch ? onAdd : onDelete}>
                     {isSearch ? <FiPlus/> : <FiX/>}
@@ -68,6 +70,7 @@ export default function SemClass({course, setAppState, callback, isSearch, semId
             </div>
             {isOpen && (
                 <div className="my-2">
+                    <p className="mb-2 text-lg font-bold leading-tight">{thisCourse.title}</p>
                     {"custom" in thisCourse ? (
                         <p>Custom course added by user</p>
                     ) : (
