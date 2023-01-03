@@ -76,7 +76,7 @@ export default function SemPos({semState, setAppState}: {semState: SemState, set
                 {isCustom ? (
                     <>
                         <Input placeholder="Course ID" value={id} onChange={e => setId(e.target.value)}/>
-                        <Input placeholder="Course name" value={id} onChange={e => setTitle(e.target.value)}/>
+                        <Input placeholder="Course name" value={title} onChange={e => setTitle(e.target.value)}/>
                         <div className="flex items-center mb-4">
                             <label className="text-xs opacity-75 mr-4">School</label>
                             {Object.entries(colors).map(d => (
