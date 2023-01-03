@@ -6,6 +6,7 @@ export default function MyModal({isOpen, setIsOpen, children}: {isOpen: boolean,
         <Modal isOpen={isOpen} onRequestClose={() => setIsOpen(false)} style={{
             overlay: {
                 backgroundColor: "rgba(0,0,0,0.6)",
+                zIndex: 15,
             },
             content: {
                 position: "absolute",
@@ -19,6 +20,7 @@ export default function MyModal({isOpen, setIsOpen, children}: {isOpen: boolean,
                 borderRadius: 4,
                 border: "none",
                 boxShadow: "0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)", // tailwind shadow-md
+                zIndex: 20,
             }
         }}>
             <div className="w-72" style={{maxHeight: "calc(100vh - 96px)"}}>

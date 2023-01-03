@@ -3,10 +3,9 @@ import {useEffect, useRef, useState} from "react";
 import Modal from "react-modal";
 import Navbar from "../components/Navbar";
 import Head from "next/head";
-import {FiPlus} from "react-icons/fi";
 import AddCol from "../components/AddCol";
 import MyModal from "../components/MyModal";
-import BigButton from "../components/BigButton";
+import Sidebar from "../components/Sidebar";
 
 let thisYear = new Date().getFullYear();
 let thisMonth = new Date().getMonth() + 1;
@@ -52,6 +51,7 @@ export default function Home() {
     const loaded = useRef<boolean>(false);
     const newUser = useRef<boolean>(false);
     const [isModalOpen, setIsModalOpen] = useState<boolean>(true);
+    const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
 
     useEffect(() => {
         const localAppState = window.localStorage.getItem("5c-course-planner-appstate");
@@ -74,21 +74,24 @@ export default function Home() {
             <Head>
                 <title>5Planner - course planner for the Claremont Colleges</title>
             </Head>
-            <Navbar/>
-            <div className="flex max-h-screen items-stretch overflow-y-hidden">
-                <AddCol dark={true} onClick={() => {
-                    setSems(prev => [prev[0] - 1, ...prev]);
-                    // @ts-ignore
-                    window.umami && window.umami("Add previous semester");
-                }}/>
-                {sems.map(d => (
-                    <SemCol sem={d} key={d} dark={d < thisSemester} appState={appState} setAppState={setAppState} sems={sems} setSems={setSems}/>
-                ))}
-                <AddCol onClick={() => {
-                    setSems(prev => [...prev, prev[prev.length - 1] + 1]);
-                    // @ts-ignore
-                    window.umami && window.umami("Add later semester");
-                }}/>
+            <Navbar setIsSidebarOpen={setIsSidebarOpen} isSidebarOpen={isSidebarOpen}/>
+            <div className="flex overflow-x-hidden">
+                <div className="flex max-h-screen items-stretch overflow-y-hidden">
+                    <AddCol dark={true} onClick={() => {
+                        setSems(prev => [prev[0] - 1, ...prev]);
+                        // @ts-ignore
+                        window.umami && window.umami("Add previous semester");
+                    }}/>
+                    {sems.map(d => (
+                        <SemCol sem={d} key={d} dark={d < thisSemester} appState={appState} setAppState={setAppState} sems={sems} setSems={setSems}/>
+                    ))}
+                    <AddCol onClick={() => {
+                        setSems(prev => [...prev, prev[prev.length - 1] + 1]);
+                        // @ts-ignore
+                        window.umami && window.umami("Add later semester");
+                    }}/>
+                </div>
+                <Sidebar isOpen={isSidebarOpen}/>
             </div>
             {newUser.current && (
                 <MyModal isOpen={isModalOpen} setIsOpen={setIsModalOpen}>
