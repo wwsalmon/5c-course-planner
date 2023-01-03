@@ -8,7 +8,7 @@ import {getAllCourses} from "./MajorReqSet";
 import classNames from "classnames";
 
 export default function MajorReq({thisReq, appState, isSub}: {thisReq: Req, appState: SemState[], isSub?: boolean}) {
-    const [isOpen, setIsOpen] = useState<boolean>(thisReq.options.length < 4);
+    const [isOpen, setIsOpen] = useState<boolean>(false);
 
     const allCourses: CourseKey[] = getAllCourses(appState);
 
