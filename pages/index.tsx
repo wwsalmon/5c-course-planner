@@ -48,6 +48,7 @@ Modal.setAppElement('#main');
 export default function Home() {
     const [appState, setAppState] = useState<SemState[]>([]);
     const [sems, setSems] = useState<number[]>([]);
+    const [selectedMajors, setSelectedMajors] = useState<string[]>([]);
     const loaded = useRef<boolean>(false);
     const newUser = useRef<boolean>(false);
     const [isModalOpen, setIsModalOpen] = useState<boolean>(true);
@@ -57,6 +58,8 @@ export default function Home() {
         const localAppState = window.localStorage.getItem("5c-course-planner-appstate");
         if (!localAppState || !JSON.parse(localAppState).length ) newUser.current = true;
         setAppState(JSON.parse(localAppState) || []);
+        const localSelectedMajors = window.localStorage.getItem("5c-course-planner-selectedmajors");
+        setSelectedMajors(JSON.parse(localSelectedMajors) || []);
         setSems(JSON.parse(window.localStorage.getItem("5c-course-planner-sems")) || initialSems);
         loaded.current = true;
     }, []);
@@ -64,6 +67,10 @@ export default function Home() {
     useEffect(() => {
         if (loaded.current) window.localStorage.setItem("5c-course-planner-appstate", JSON.stringify(appState));
     }, [appState]);
+
+    useEffect(() => {
+        if (loaded.current) window.localStorage.setItem("5c-course-planner-selectedmajors", JSON.stringify(selectedMajors));
+    }, [selectedMajors]);
 
     useEffect(() => {
         if (loaded.current) window.localStorage.setItem("5c-course-planner-sems", JSON.stringify(sems));
@@ -74,7 +81,7 @@ export default function Home() {
             <Head>
                 <title>5Planner - course planner for the Claremont Colleges</title>
             </Head>
-            <Navbar setIsSidebarOpen={setIsSidebarOpen} isSidebarOpen={isSidebarOpen}/>
+            <Navbar setIsSidebarOpen={setIsSidebarOpen} selectedMajors={selectedMajors}/>
             <div className="flex overflow-x-hidden">
                 <div className="flex max-h-screen items-stretch overflow-y-hidden">
                     <AddCol dark={true} onClick={() => {
@@ -91,7 +98,7 @@ export default function Home() {
                         window.umami && window.umami("Add later semester");
                     }}/>
                 </div>
-                <Sidebar isOpen={isSidebarOpen} appState={appState}/>
+                <Sidebar isOpen={isSidebarOpen} appState={appState} setSelectedMajors={setSelectedMajors} selectedMajors={selectedMajors}/>
             </div>
             {newUser.current && (
                 <MyModal isOpen={isModalOpen} setIsOpen={setIsModalOpen}>

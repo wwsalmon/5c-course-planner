@@ -2,7 +2,7 @@ import BigButton from "./BigButton";
 import UpperH from "./UpperH";
 import classNames from "classnames";
 import MyModal from "./MyModal";
-import {useEffect, useRef, useState} from "react";
+import {Dispatch, SetStateAction, useEffect, useRef, useState} from "react";
 import Input from "./Input";
 import majors from "../majors.json";
 import fuzzysort from "fuzzysort";
@@ -10,21 +10,9 @@ import {FiPlus} from "react-icons/fi";
 import Major from "./Major";
 import {SemState} from "../pages";
 
-export default function Sidebar({isOpen, appState}: {isOpen: boolean, appState: SemState[]}) {
+export default function Sidebar({isOpen, appState, selectedMajors, setSelectedMajors}: {isOpen: boolean, appState: SemState[], selectedMajors: string[], setSelectedMajors: Dispatch<SetStateAction<string[]>>}) {
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const [majorSearch, setMajorSearch] = useState<string>("");
-    const [selectedMajors, setSelectedMajors] = useState<string[]>([]);
-    const loaded = useRef<boolean>(false);
-
-    useEffect(() => {
-        const localSelectedMajors = window.localStorage.getItem("5c-course-planner-selectedmajors");
-        setSelectedMajors(JSON.parse(localSelectedMajors) || []);
-        loaded.current = true;
-    }, []);
-
-    useEffect(() => {
-        if (loaded.current) window.localStorage.setItem("5c-course-planner-selectedmajors", JSON.stringify(selectedMajors));
-    }, [selectedMajors]);
 
     return (
         <>
