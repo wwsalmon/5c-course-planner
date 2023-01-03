@@ -27,20 +27,20 @@ export function decodeSemester(semNum: number) {
 
 type IdCourse = string;
 
-interface CustomCourse {
+export interface CustomCourse {
     identifier: string,
     title: string,
     source: string,
-    custom: true,
+    custom: boolean,
 };
 
-export type Course = IdCourse | CustomCourse;
+export type CourseKey = IdCourse | CustomCourse;
 
 export interface SemState {
     sem: number,
     id: string,
     title: string,
-    courses: Course[],
+    courses: CourseKey[],
 }
 
 Modal.setAppElement('#main');
@@ -91,7 +91,7 @@ export default function Home() {
                         window.umami && window.umami("Add later semester");
                     }}/>
                 </div>
-                <Sidebar isOpen={isSidebarOpen}/>
+                <Sidebar isOpen={isSidebarOpen} appState={appState}/>
             </div>
             {newUser.current && (
                 <MyModal isOpen={isModalOpen} setIsOpen={setIsModalOpen}>

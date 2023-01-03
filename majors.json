@@ -1,0 +1,157 @@
+[
+  {
+    "name": "Pomona Media Studies minor",
+    "websites": [
+      "https://catalog.pomona.edu/preview_entity.php?catoid=43&ent_oid=2286",
+      "https://www.pitzer.edu/ims/"
+    ],
+    "reqs": [
+      {
+        "name": "One introductory critical/theoretical course [I]",
+        "number": 1,
+        "options": [
+          "MS-049-PO",
+          "MS-049-PZ",
+          "MS-049-SC",
+          "MS-050-PO",
+          "MS-050-PZ",
+          "MS-050-HM",
+          "LIT-130-CM",
+          "MS-051-PO"
+        ]
+      },
+      {
+        "name": "One introductory production course [P]",
+        "number": 1,
+        "options": [
+          "ART-020-PO",
+          "ART-021-PO",
+          "ART-141-SC",
+          "ART-145-SC",
+          "ART-148-SC",
+          "LIT-030-CM",
+          "MS-053-SC",
+          "MS-059-SC",
+          "MS-159-SC",
+          "MS-082-PZ",
+          "MS-182-HM"
+        ]
+      },
+      {
+        "name": "One course in media history [MH]",
+        "number": 1,
+        "options": [
+          "LIT-131-CM",
+          "LIT-132-CM",
+          "LIT-134-CM",
+          "LIT-137-CM",
+          "MS-042-PZ",
+          "MS-045-PZ",
+          "MS-053-PZ",
+          "MS-055-PZ",
+          "MS-061-PZ",
+          "MS-079-PZ",
+          "MS-083-PZ",
+          "MS-086-PZ",
+          "MS-088-PZ",
+          "MS-089-PZ",
+          "MS-091-PZ",
+          "MS-091-PO",
+          "MS-094-PO",
+          "MS-100-PO",
+          "MS-111-PO",
+          "MS-116-PO",
+          "MS-135-PO",
+          "MS-137-PZ",
+          "MS-151-PZ",
+          "MS-152-PO",
+          "MS-153-PO",
+          "MS-160-PO",
+          "ENGL-189A-SC",
+          "ENGL-189B-SC",
+          "ENGL-189C-SC",
+          "ENGL-189D-SC"
+        ]
+      },
+      {
+        "name": "One course in media theory [T]",
+        "number": 1,
+        "options": [
+          "ART-181-SC",
+          "ART-181G-SC",
+          "ART-183-SC",
+          "ARHI-141A-PO",
+          "ARHI-141B-PO",
+          "ARHI-144B-PO",
+          "ARHI-178-PO",
+          "ARHI-186T-PO",
+          "ARHI-186Y-PO",
+          "ENGL-118-PO",
+          "ENGL-147-PO",
+          "LIT-103-HM",
+          "LIT-136-CM",
+          "LIT-138-CM",
+          "LIT-139-CM",
+          "MS-046-PZ",
+          "MS-048-PZ",
+          "MS-070-PZ",
+          "MS-105-PZ",
+          "MS-106-PZ",
+          "MS-110-PZ",
+          "MS-112-PZ",
+          "MS-113-PZ",
+          "MS-114-PZ",
+          "MS-118-PZ",
+          "MS-136-PZ",
+          "MS-147B-PO",
+          "MS-147C-PO",
+          "MS-147E-PO",
+          "MS-147G-PO",
+          "MS-147H-PO",
+          "MS-148B-PO",
+          "MS-148C-PO",
+          "MS-149-PO",
+          "MS-149E-PO",
+          "MS-149F-PO",
+          "MS-149H-PO",
+          "MS-149Q-PO"
+        ]
+      },
+      {
+        "name": "Two additional approved media studies courses",
+        "number": 2,
+        "options": []
+      }
+    ]
+  },
+  {
+    "name": "Pomona Physics major",
+    "websites": [
+      "https://catalog.pomona.edu/preview_entity.php?catoid=43&ent_oid=2293"
+    ],
+    "reqs": [
+      {
+        "overallName": "Introductory sequence",
+        "options": [
+          {
+            "name": "7X track",
+            "number": 3,
+            "options": [
+              "PHYS-070-PO",
+              "PHYS-071-PO",
+              "PHYS-072-PO"
+            ]
+          },
+          {
+            "name": "4X track",
+            "number": 2,
+            "options": [
+              "PHYS-041-PO",
+              "PHYS-042-PO"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

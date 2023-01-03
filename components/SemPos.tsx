@@ -1,13 +1,14 @@
 import {Dispatch, ReactNode, SetStateAction, useEffect, useRef, useState} from "react";
 import UpperH from "./UpperH";
 import BigButton from "./BigButton";
-import {Course, SemState} from "../pages";
-import SemClass, {colors} from "./SemClass";
+import {CourseKey, SemState} from "../pages";
+import SemCourse, {colors} from "./SemCourse";
 import {FiX} from "react-icons/fi";
 import MyModal from "./MyModal";
 import data from "../data_5scheduler.json";
 import fuzzysort from "fuzzysort";
 import classNames from "classnames";
+import Input from "./Input";
 
 export default function SemPos({semState, setAppState}: {semState: SemState, setAppState: Dispatch<SetStateAction<SemState[]>>}) {
     function onRemove() {
@@ -57,7 +58,7 @@ export default function SemPos({semState, setAppState}: {semState: SemState, set
                 <button className="ml-auto opacity-50 hover:opacity-100" onClick={onRemove}><FiX/></button>
             </div>
             {semState.courses.map((d, i) => (
-                <SemClass course={d} setAppState={setAppState} semId={semState.id} key={typeof d === "string" ? d : d.identifier}/>
+                <SemCourse courseKey={d} setAppState={setAppState} semId={semState.id} key={typeof d === "string" ? d : d.identifier}/>
             ))}
             <BigButton className="px-2 py-1 text-sm mt-3" onClick={() => {
                 setModalOpen(true);
@@ -74,8 +75,8 @@ export default function SemPos({semState, setAppState}: {semState: SemState, set
                 </div>
                 {isCustom ? (
                     <>
-                        <input type="text" placeholder="Course ID" className="px-2 py-1 border border-gray-400 w-full text-sm mb-2" value={id} onChange={e => setId(e.target.value)}/>
-                        <input type="text" placeholder="Course name" className="px-2 py-1 border border-gray-400 w-full text-sm mb-2" value={title} onChange={e => setTitle(e.target.value)}/>
+                        <Input placeholder="Course ID" value={id} onChange={e => setId(e.target.value)}/>
+                        <Input placeholder="Course name" value={id} onChange={e => setTitle(e.target.value)}/>
                         <div className="flex items-center mb-4">
                             <label className="text-xs opacity-75 mr-4">School</label>
                             {Object.entries(colors).map(d => (
@@ -88,10 +89,9 @@ export default function SemPos({semState, setAppState}: {semState: SemState, set
                     </>
                 ) : (
                     <>
-                        <input type="text" placeholder="Search by name or code" className="px-2 py-1 border border-gray-400 w-full text-sm"
-                               value={search} onChange={e => setSearch(e.target.value)}/>
+                        <Input placeholder="Search by name or code" value={search} onChange={e => setSearch(e.target.value)}/>
                         {fuzzysort.go(search, data.filter(d => !semState.courses.includes(d.identifier)), {keys: ["title", "identifier"], limit: 10}).map(d => (
-                            <SemClass course={d.obj.identifier} key={d.obj.identifier} setAppState={setAppState} callback={() => {
+                            <SemCourse courseKey={d.obj.identifier} key={d.obj.identifier} setAppState={setAppState} callback={() => {
                                 setModalOpen(false);
                                 setSearch("");
                             }} isSearch={true} semId={semState.id}/>
