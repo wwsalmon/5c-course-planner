@@ -2,7 +2,7 @@ import BigButton from "./BigButton";
 import UpperH from "./UpperH";
 import classNames from "classnames";
 import MyModal from "./MyModal";
-import {Dispatch, SetStateAction, useEffect, useRef, useState} from "react";
+import {Dispatch, SetStateAction, useState} from "react";
 import Input from "./Input";
 import majors from "../majors.json";
 import fuzzysort from "fuzzysort";
@@ -23,6 +23,7 @@ export default function Sidebar({isOpen, appState, selectedMajors, setSelectedMa
                 <BigButton className="p-4" onClick={() => setIsModalOpen(true)}>
                     <UpperH>+ Add major or minor</UpperH>
                 </BigButton>
+                <p className="text-white mt-6">Note: this part of the app is very WIP! Some things might be broken + there aren't many majors available. If you want to help add your major please reach out to me (samson)! You don't need to know how to code to do it and it would help me build this a lot faster.</p>
                 {selectedMajors.map(d => (
                     <Major name={d} setSelectedMajors={setSelectedMajors} appState={appState}/>
                 ))}
@@ -32,7 +33,7 @@ export default function Sidebar({isOpen, appState, selectedMajors, setSelectedMa
                         <button key={d.name} onClick={() => {
                             setSelectedMajors(prev => [...prev, d.name]);
                             setIsModalOpen(false);
-                        }} className="py-1 px-2 block w-full bg-gray-300 text-sm flex items-center">
+                        }} className="py-1 px-2 block w-full bg-gray-300 text-sm flex items-center my-2">
                             {d.name}
                             <span className="ml-auto">
                                 <FiPlus/>
