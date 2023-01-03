@@ -1,4 +1,4 @@
-import {Dispatch, ReactNode, SetStateAction, useEffect, useRef, useState} from "react";
+import {Dispatch, SetStateAction, useState} from "react";
 import UpperH from "./UpperH";
 import BigButton from "./BigButton";
 import {CourseKey, SemState} from "../pages";
@@ -26,7 +26,7 @@ export default function SemPos({semState, setAppState}: {semState: SemState, set
 
     const canAddCustom = id && title && source;
 
-    function onAdd() {
+    function onAddCustom() {
         setAppState(prev => {
             let newAppState = [...prev];
             const thisIndex = newAppState.findIndex(d => d.id === semState.id);
@@ -40,6 +40,32 @@ export default function SemPos({semState, setAppState}: {semState: SemState, set
         setTitle("");
         setId("");
         setSource("");
+    }
+
+    function onAdd(courseKey: CourseKey) {
+        setAppState(prev => {
+            let newAppState = [...prev];
+            const thisIndex = newAppState.findIndex(d => d.id === semState.id);
+            newAppState[thisIndex].courses.push(courseKey);
+            return newAppState;
+        });
+        setModalOpen(false);
+        setSearch("");
+
+        // @ts-ignore
+        window.umami && window.umami("Add catalog course");
+    }
+
+    function onDelete(courseKey: CourseKey) {
+        setAppState(prev => {
+            let newAppState = [...prev];
+            const thisIndex = newAppState.findIndex(d => d.id === semState.id);
+            newAppState[thisIndex].courses = newAppState[thisIndex].courses.filter(d => d !== courseKey);
+            return newAppState;
+        });
+
+        // @ts-ignore
+        window.umami && window.umami("Remove course");
     }
 
     return (
@@ -58,7 +84,7 @@ export default function SemPos({semState, setAppState}: {semState: SemState, set
                 <button className="ml-auto opacity-50 hover:opacity-100" onClick={onRemove}><FiX/></button>
             </div>
             {semState.courses.map((d, i) => (
-                <SemCourse courseKey={d} setAppState={setAppState} semId={semState.id} key={typeof d === "string" ? d : d.identifier}/>
+                <SemCourse courseKey={d} onDelete={onDelete} key={typeof d === "string" ? d : d.identifier}/>
             ))}
             <BigButton className="px-2 py-1 text-sm mt-3" onClick={() => {
                 setModalOpen(true);
@@ -85,16 +111,13 @@ export default function SemPos({semState, setAppState}: {semState: SemState, set
                                 </button>
                             ))}
                         </div>
-                        <button disabled={!canAddCustom} className={classNames("w-full py-1 text-sm disabled:opacity-50 bg-[#222] text-white", canAddCustom && "hover:bg-black")} onClick={onAdd}>Add course</button>
+                        <button disabled={!canAddCustom} className={classNames("w-full py-1 text-sm disabled:opacity-50 bg-[#222] text-white", canAddCustom && "hover:bg-black")} onClick={onAddCustom}>Add course</button>
                     </>
                 ) : (
                     <>
                         <Input placeholder="Search by name or code" value={search} onChange={e => setSearch(e.target.value)}/>
                         {fuzzysort.go(search, data.filter(d => !semState.courses.includes(d.identifier)), {keys: ["title", "identifier"], limit: 10}).map(d => (
-                            <SemCourse courseKey={d.obj.identifier} key={d.obj.identifier} setAppState={setAppState} callback={() => {
-                                setModalOpen(false);
-                                setSearch("");
-                            }} isSearch={true} semId={semState.id}/>
+                            <SemCourse courseKey={d.obj.identifier} key={d.obj.identifier} onAdd={onAdd}/>
                         ))}
                     </>
                 )}
