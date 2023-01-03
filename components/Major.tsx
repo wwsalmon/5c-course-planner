@@ -3,6 +3,7 @@ import majors from "../majors.json";
 import {FiX} from "react-icons/fi";
 import MajorReq from "./MajorReq";
 import {SemState} from "../pages";
+import MajorReqSet from "./MajorReqSet";
 
 export interface Major {
     name: string,
@@ -28,7 +29,7 @@ export default function Major({name, setSelectedMajors, appState}: {name: string
 
     return (
         <div className="p-2 bg-white my-4">
-            <div className="flex items-center cursor-pointer" onClick={() => setIsOpen(prev => !prev)}>
+            <div className="flex items-center" onClick={() => setIsOpen(prev => !prev)}>
                 <p className="text-lg font-bold leading-tight">{thisMajor.name}</p>
                 <button className="ml-auto" onClick={() => setSelectedMajors(prev => prev.filter(d => d !== name))}><FiX/></button>
             </div>
@@ -36,15 +37,13 @@ export default function Major({name, setSelectedMajors, appState}: {name: string
                 <>
                     {thisMajor.reqs.map((d, i) => (
                         <Fragment key={"name" in d ? d.name : d.overallName}>
+                            {i !== 0 && (
+                                <hr className="my-6"/>
+                            )}
                             {"name" in d ? (
-                                <>
-                                    {i !== 0 && (
-                                        <hr className="my-6"/>
-                                    )}
-                                    <MajorReq thisReq={d} appState={appState}/>
-                                </>
+                                <MajorReq thisReq={d} appState={appState}/>
                             ) : (
-                                <p>bs</p>
+                                <MajorReqSet thisReqSet={d} appState={appState}/>
                             )}
                         </Fragment>
                     ))}
