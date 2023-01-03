@@ -19,18 +19,11 @@ export default function About() {
             <div className="prose mt-16">
                 <h2>Why did you make this?</h2>
                 <p>I was trying to figure out what classes to take next semester and it was hard :( so I made this instead of actually figuring it out</p>
-                <h2>Can I see what requirements are fulfilled?</h2>
-                <p>At the moment, not automatically, because:</p>
-                <ol>
-                    <li>I don't have the data. There are five schools and more than a hundred different majors, whose requirements all change every few years. It would require a lot of labor to collect and maintain a structured version of all this information.</li>
-                    <li>I made this project over break to procrastinate other work and didn't get around to it</li>
-                </ol>
-                <p>That being said, I can see a few easy ways to add similar functionality:</p>
-                <ul>
-                    <li>Make a manual requirement checklist so you can add your own general and major requirements and check them off as you plan</li>
-                    <li>Build some sort of social feature so you can share plans with others. This way major liaisons could create template schedules and post them publicly</li>
-                </ul>
-                <p>Let me know if you have ideas or want to contribute! (see also "can I contribute" below)</p>
+                <h2>Can I see what major requirements are fulfilled?</h2>
+                <p>This is a WIP feature. Click the "major requirements" button in the top right in the app to try it out.</p>
+                <p>Only a few majors are available right now because I'm adding them all myself by hand. If you want to help add your major (no coding required) please reach out!</p>
+                <h2>How can I get in touch with you?</h2>
+                <p>For now (winter break) I'll be posting updates about the app on Instagram. Message me there with feedback or if you want to help. My username is <code>@samsonzhangthesalmon</code>.</p>
                 <h2>How does this app work?</h2>
                 <p>It's built using React (NextJS). One big state variable contains all course lists, and is saved to localStorage every time a change is made. That means that if you close and open the website in the same browser, all your data should still be there, without the uploading of any data to any servers.</p>
                 <p>See the <a href="https://github.com/wwsalmon/5c-course-planner">source code on GitHub</a>.</p>
