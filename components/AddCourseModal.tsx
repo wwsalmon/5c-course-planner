@@ -30,7 +30,10 @@ export default function AddCourseModal({isOpen, setIsOpen, onAddCustom, onAdd, e
                     <>
                         <Input placeholder="Search by name or code" value={search} onChange={e => setSearch(e.target.value)}/>
                         {fuzzysort.go(search, data.filter(d => !existingList.includes(d.identifier)), {keys: ["title", "identifier"], limit: 10}).map(d => (
-                            <SemCourse courseKey={d.obj.identifier} key={d.obj.identifier} onAdd={onAdd}/>
+                            <SemCourse courseKey={d.obj.identifier} key={d.obj.identifier} onAdd={(courseKey: CourseKey) => {
+                                onAdd(courseKey);
+                                setSearch("");
+                            }}/>
                         ))}
                     </>
                 ),
@@ -46,7 +49,12 @@ export default function AddCourseModal({isOpen, setIsOpen, onAddCustom, onAdd, e
                                 </button>
                             ))}
                         </div>
-                        <button disabled={!canAddCustom} className={classNames("w-full py-1 text-sm disabled:opacity-50 bg-[#222] text-white", canAddCustom && "hover:bg-black")} onClick={() => onAddCustom(title, id, source)}>Add course</button>
+                        <button disabled={!canAddCustom} className={classNames("w-full py-1 text-sm disabled:opacity-50 bg-[#222] text-white", canAddCustom && "hover:bg-black")} onClick={() => {
+                            onAddCustom(title, id, source);
+                            setTitle("");
+                            setId("");
+                            setSource("");
+                        }}>Add course</button>
                     </>
                 )
             }[tab]}
