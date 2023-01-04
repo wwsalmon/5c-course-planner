@@ -23,7 +23,8 @@ export default function Sidebar({isOpen, appState, selectedMajors, setSelectedMa
                 <BigButton className="p-4" onClick={() => setIsModalOpen(true)}>
                     <UpperH>+ Add major or minor</UpperH>
                 </BigButton>
-                <p className="text-white mt-6">Note: this part of the app is very WIP! Some things might be broken + there aren't many majors available. If you want to help add your major please reach out to me (samson)! You don't need to know how to code to do it and it would help me build this a lot faster.</p>
+                <p className="text-white mt-6 mb-4 text-sm opacity-75">Note: this part is WIP! I'm working on plugging in Pomona majors</p>
+                <p className="text-white opacity-75 text-sm">The requirements and courses that satisfy them listed here are not guaranteed to be complete or accurate. Always double-check with official requirements when making decisions.</p>
                 {selectedMajors.map(d => (
                     <Major name={d} setSelectedMajors={setSelectedMajors} appState={appState}/>
                 ))}

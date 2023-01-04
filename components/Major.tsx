@@ -35,6 +35,9 @@ export default function Major({name, setSelectedMajors, appState}: {name: string
             </div>
             {isOpen && (
                 <>
+                    {!!thisMajor.websites.length && thisMajor.websites.map((d, i) => (
+                        <a href={d} key={i} className="text-sm opacity-75 my-2 underline truncate w-full block">{d}</a>
+                    ))}
                     {thisMajor.reqs.map((d, i) => (
                         <Fragment key={"name" in d ? d.name : d.overallName}>
                             {i !== 0 && (
