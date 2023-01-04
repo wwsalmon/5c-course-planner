@@ -236,5 +236,34 @@
         "options": ["ECON-190-PO", "ECON-195-PO"]
       }
     ]
+  },
+  {
+    "name": "Pomona Politics major",
+    "websites": [
+      "https://catalog.pomona.edu/preview_entity.php?catoid=43&ent_oid=2294"
+    ],
+    "reqs": [
+      {
+        "name": "Eight general courses, including one from each of the four subfields",
+        "number": 8,
+        "options": [
+          "^POLI-(00[1-9]|0[1-9]\\d|1[0-8]\\d)"
+        ]
+      },
+      {
+        "name": "Senior seminar",
+        "number": 1,
+        "options": [
+          "^POLI-190"
+        ]
+      },
+      {
+        "name": "Senior examination",
+        "number": 1,
+        "options": [
+          "POLI-193-PO"
+        ]
+      }
+    ]
   }
 ]
