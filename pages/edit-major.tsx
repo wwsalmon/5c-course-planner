@@ -4,11 +4,8 @@ import BigButton from "../components/BigButton";
 import {FiX} from "react-icons/fi";
 import classNames from "classnames";
 import {Req, ReqSet} from "../components/Major";
-import AddCourseModal from "../components/AddCourseModal";
-import MajorCourse from "../components/MajorCourse";
-import SemCourse from "../components/SemCourse";
-import data from "../data_5scheduler.json";
-import RegexMatch from "../components/RegexMatch";
+import EditReq from "../components/EditReq";
+import Head from "next/head";
 
 function Label(props: ComponentProps<"label">) {
     let thisProps = {...props};
@@ -20,7 +17,7 @@ function Label(props: ComponentProps<"label">) {
     )
 }
 
-function AdminButton(props: ComponentProps<"button">) {
+export function AdminButton(props: ComponentProps<"button">) {
     let thisProps = {...props};
     thisProps.className = classNames("py-1 text-sm my-2", props.className);
 
@@ -30,6 +27,7 @@ function AdminButton(props: ComponentProps<"button">) {
 }
 
 export default function EditMajor() {
+    const [importCode, setImportCode] = useState<string>("");
     const [name, setName] = useState<string>("");
     const [websites, setWebsites] = useState<string[]>([]);
     const [reqs, setReqs] = useState<Req[]>([]);
@@ -38,7 +36,11 @@ export default function EditMajor() {
 
     return (
         <div className="p-4 max-w-3xl mx-auto">
+            <Head>
+                <title>Major requirement editor | 5Planner</title>
+            </Head>
             <h1 className="text-4xl mt-8 mb-4">Major requirement editor</h1>
+            <p>Hi! You shouldn't be on this page unless you're helping create major requirement code for this app. If you are, thanks for helping out! Fill out the fields below, then copy and paste the generated code at the bottom and send it to me.</p>
             <Label>Name</Label>
             <Input placeholder="ex. Pomona Music major" value={name} onChange={e => setName(e.target.value)}/>
             <Label>Website(s)</Label>
@@ -60,74 +62,72 @@ export default function EditMajor() {
             ))}
             <AdminButton onClick={() => setWebsites(prev => [...prev, ""])}>+ Add website</AdminButton>
             <hr className="my-10"/>
-            <Label>Fixed requirements (required for all majors)</Label>
-            {reqs.map((d, i) => (
-                <div className="p-4 bg-white my-4 border shadow-md" key={i}>
-                    <label className="font-medium mb-2 text-sm block">Requirement name</label>
-                    <Input value={d.name} onChange={e => setReqs(prev => {
-                        let newReqs = [...prev];
-                        newReqs[i].name = e.target.value;
-                        return newReqs;
-                    })} placeholder="ex. Introductory sequence"/>
-                    <label className="font-medium mb-2 text-sm block">Number of courses required</label>
-                    <Input type="number" value={d.number} onChange={e => setReqs(prev => {
-                        let newReqs = [...prev];
-                        newReqs[i].number = +e.target.value;
-                        return newReqs;
-                    })}/>
-                    <label className="font-medium mb-2 text-sm block">Courses that satisfy this requirement</label>
-                    <AddCourseModal isOpen={isModalOpen} setIsOpen={setIsModalOpen} onAdd={courseKey => {
-                        setReqs(prev => {
-                            let newReqs = [...prev];
-                            newReqs[i].options.push(courseKey);
-                            return newReqs;
-                        });
-                        setIsModalOpen(false);
-                    }} onAddCustom={(title, id, source) => {
-                        setReqs(prev => {
-                            let newReqs = [...prev];
-                            newReqs[i].options.push({title, identifier: id, source, custom: true});
-                            return newReqs;
-                        });
-                        setIsModalOpen(false);
-                    }} existingList={d.options} onAddRegex={(regex) => setReqs(prev => {
-                        let newReqs = [...prev];
-                        newReqs[i].options.push(regex);
-                        return newReqs;
-                    })}/>
-                    {d.options.map(x => (typeof x === "string" && x.substring(0, 1) === "^") ? (
-                        <RegexMatch regexString={x} onRemove={(regexString) => {
-                            setReqs(prev => {
-                                let newReqs = [...prev];
-                                newReqs[i].options = newReqs[i].options.filter(option => option !== regexString);
-                                return newReqs;
-                            });
-                            setIsModalOpen(false);
-                        }}/>
-                    ) : (
-                        <SemCourse courseKey={x} onDelete={(courseKey) => {
-                            setReqs(prev => {
-                                let newReqs = [...prev];
-                                newReqs[i].options = newReqs[i].options.filter(y => (typeof y === "string" ? y : y.identifier) !== (typeof courseKey === "string" ? courseKey : courseKey.identifier));
-                                return newReqs;
-                            });
-                            setIsModalOpen(false);
-                        }}/>
-                    ))}
-                    <AdminButton onClick={() => setIsModalOpen(true)}>+ Add course</AdminButton>
-                    <hr className="my-4"/>
-                    <AdminButton onClick={() => setReqs(prev => {
-                        let newReqs = [...prev];
-                        newReqs.splice(i,1);
-                        return newReqs;
-                    })} className="text-red-500 border-red-500">Delete requirement</AdminButton>
-                </div>
+            <Label>Fixed requirements</Label>
+            {reqs.map((req, i) => (
+                <EditReq req={req} setReq={(operation) => setReqs(prev => {
+                    let newReqs = [...prev];
+                    newReqs[i] = operation(newReqs[i]);
+                    return newReqs;
+                })} onDelete={() => setReqs(prev => {
+                    let newReqs = [...prev];
+                    newReqs.splice(i,1);
+                    return newReqs;
+                })} key={i}/>
             ))}
             <AdminButton onClick={() => setReqs(prev => [...prev, {name: "", number: 0, options: []}])}>+ Add requirement section</AdminButton>
             <hr className="my-10"/>
-            <Label>Tracked requirements (sets of tracks, only one of which needs to be satisfied)</Label>
-            <AdminButton onClick={() => setReqSets(prev => [...prev, {overallName: "", options: []}])}>+ Add requirement track set </AdminButton>
+            <Label>Requirement sets, e.g. tracks, only one of which needs to be satisfied</Label>
+            {reqSets.map((reqSet, i) => (
+                <div className="p-4 border bg-[#222] my-6" key={i}>
+                    <label className="font-medium mb-2 text-sm block text-white">Requirement set name</label>
+                    <Input placeholder="ex. Intro tracks" value={reqSet.overallName} onChange={e => setReqSets(prev => {
+                        let newReqSets = [...prev];
+                        newReqSets[i].overallName = e.target.value;
+                        return newReqSets;
+                    })}/>
+                    <label className="font-medium mt-6 mb-2 text-sm block text-white">Requirements that satisfy this requirement set</label>
+                    {reqSet.options.map((req, j) => (
+                        <EditReq req={req} setReq={(operation) => setReqSets(prev => {
+                            let newReqSets = [...prev];
+                            newReqSets[i].options[j] = operation(newReqSets[i].options[j]);
+                            return newReqSets;
+                        })} onDelete={() => setReqSets(prev => {
+                            let newReqSets = [...prev];
+                            newReqSets[i].options.splice(j,1);
+                            return newReqSets;
+                        })} key={j}/>
+                    ))}
+                    <AdminButton onClick={() => setReqSets(prev => {
+                        let newReqSets = [...prev];
+                        newReqSets[i].options.push({name: "", number: 0, options: []});
+                        return newReqSets;
+                    })}>+ Add requirement</AdminButton>
+                    <hr className="my-4"/>
+                    <AdminButton className="text-red-500 border-red-500" onClick={() => {
+                        setReqSets(prev => {
+                            let newReqSets = [...prev];
+                            newReqSets.splice(i, 1);
+                            return newReqSets;
+                        });
+                    }}>Delete requirement set</AdminButton>
+                </div>
+            ))}
+            <AdminButton onClick={() => setReqSets(prev => [...prev, {overallName: "", options: []}])}>+ Add requirement set </AdminButton>
             <hr className="my-10"/>
+            <Label>Export code (copy from below)</Label>
+            <textarea readOnly={true} className="w-full h-48 p-2 border whitespace-pre" value={JSON.stringify({
+                    name, websites, reqs: [...reqs, ...reqSets]
+                }, null, "\t")}/>
+            <hr className="my-10"/>
+            <Label>Import code (experimental, may crash)</Label>
+            <textarea className="w-full h-48 p-2 border whitespace-pre" value={importCode} onChange={e => setImportCode(e.target.value)}/>
+            <AdminButton onClick={() => {
+                const thisData = JSON.parse(importCode);
+                setName(thisData.name);
+                setWebsites(thisData.websites);
+                setReqs(thisData.reqs.filter(d => "name" in d));
+                setReqSets(thisData.reqs.filter(d => "overallName" in d));
+            }}>Import</AdminButton>
         </div>
     )
 }

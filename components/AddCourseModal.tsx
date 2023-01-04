@@ -26,7 +26,7 @@ export default function AddCourseModal({isOpen, setIsOpen, onAddCustom, onAdd, e
             <UpperH className="mb-4">Add course</UpperH>
             <div className="flex items-center text-sm mb-4">
                 {tabs.map(d => (
-                    <button className={classNames("w-1/2 pb-1", (tab === d) && "font-bold border-b border-black")} onClick={() => setTab(d)}>{d}</button>
+                    <button className={classNames("w-1/2 pb-1", (tab === d) && "font-bold border-b border-black")} onClick={() => setTab(d)} key={d}>{d}</button>
                 ))}
             </div>
             {{
