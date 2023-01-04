@@ -27,14 +27,16 @@ export interface CatalogCourse {
 
 export type Course = CatalogCourse | CustomCourse;
 
-export default function SemCourse({courseKey, onAdd, onDelete}: { courseKey: CourseKey, onAdd?: (courseKey: CourseKey) => void, onDelete?: (courseKey: CourseKey) => void }) {
+export default function SemCourse({courseKey, onAdd, onDelete, className}: { courseKey: CourseKey, onAdd?: (courseKey: CourseKey) => void, onDelete?: (courseKey: CourseKey) => void, className?: string }) {
     const thisCourse: Course = typeof courseKey === "string" ? data.find(d => d.identifier === courseKey) : courseKey;
 
     return (
-        <CourseShell thisCourse={thisCourse}>
-            <button className="ml-auto pl-2 flex-shrink-0 opacity-50 hover:opacity-100" onClick={() => (onAdd || onDelete)(courseKey)}>
-                {onAdd ? <FiPlus/> : <FiX/>}
-            </button>
+        <CourseShell thisCourse={thisCourse} className={className}>
+            {(onAdd || onDelete) && (
+                <button className="ml-auto pl-2 flex-shrink-0 opacity-50 hover:opacity-100" onClick={() => (onAdd || onDelete)(courseKey)}>
+                    {onAdd ? <FiPlus/> : <FiX/>}
+                </button>
+            )}
         </CourseShell>
     )
 }

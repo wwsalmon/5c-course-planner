@@ -7,6 +7,8 @@ import {Req, ReqSet} from "../components/Major";
 import AddCourseModal from "../components/AddCourseModal";
 import MajorCourse from "../components/MajorCourse";
 import SemCourse from "../components/SemCourse";
+import data from "../data_5scheduler.json";
+import RegexMatch from "../components/RegexMatch";
 
 function Label(props: ComponentProps<"label">) {
     let thisProps = {...props};
@@ -89,14 +91,28 @@ export default function EditMajor() {
                             return newReqs;
                         });
                         setIsModalOpen(false);
-                    }} existingList={d.options}/>
-                    {d.options.map(x => (
+                    }} existingList={d.options} onAddRegex={(regex) => setReqs(prev => {
+                        let newReqs = [...prev];
+                        newReqs[i].options.push(regex);
+                        return newReqs;
+                    })}/>
+                    {d.options.map(x => (typeof x === "string" && x.substring(0, 1) === "^") ? (
+                        <RegexMatch regexString={x} onRemove={(regexString) => {
+                            setReqs(prev => {
+                                let newReqs = [...prev];
+                                newReqs[i].options = newReqs[i].options.filter(option => option !== regexString);
+                                return newReqs;
+                            });
+                            setIsModalOpen(false);
+                        }}/>
+                    ) : (
                         <SemCourse courseKey={x} onDelete={(courseKey) => {
                             setReqs(prev => {
                                 let newReqs = [...prev];
                                 newReqs[i].options = newReqs[i].options.filter(y => (typeof y === "string" ? y : y.identifier) !== (typeof courseKey === "string" ? courseKey : courseKey.identifier));
                                 return newReqs;
                             });
+                            setIsModalOpen(false);
                         }}/>
                     ))}
                 </div>
