@@ -63,6 +63,7 @@ export default function AddCourseModal({isOpen, setIsOpen, onAddCustom, onAdd, e
                 ),
                 Regex: (
                     <>
+                        <p className="opacity-75 text-sm mb-4">You might find this helpful: <a href="https://3widgets.com/" className="font-bold underline">Regex Numeric Range Generator</a></p>
                         <Input placeholder="Regex string" value={regex} onChange={e => setRegex(e.target.value)}/>
                         <button disabled={!regex} className={classNames("w-full py-1 text-sm disabled:opacity-50 bg-[#222] text-white", regex && "hover:bg-black")} onClick={() => {
                             onAddRegex(regex);
