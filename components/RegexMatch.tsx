@@ -9,10 +9,10 @@ export default function RegexMatch({regexString, onRemove}: {regexString: string
     const matchingCourses = data.filter(course => course.identifier.match(regexString));
 
     return (
-        <div className="p-2 border bg-[#222]" key={regexString}>
+        <div className="p-2 border bg-[#222] my-3" key={regexString}>
             <div className="flex items-center text-white cursor-pointer" onClick={() => setIsOpen(prev => !prev)}>
                 <p className="text-sm font-medium">Regex rule: <code>{regexString}</code> | {matchingCourses.length} matches</p>
-                <button className="ml-auto opacity-50 hover:opacity-100" onClick={() => onRemove(regexString)}><FiX/></button>
+                <button className="ml-auto opacity-50 hover:opacity-100 text-sm -mr-1" onClick={() => onRemove(regexString)}><FiX/></button>
             </div>
             {isOpen && matchingCourses.map(course => (
                 <SemCourse courseKey={course.identifier} className="text-white"/>

@@ -76,7 +76,6 @@ export default function EditMajor() {
                         return newReqs;
                     })}/>
                     <label className="font-medium mb-2 text-sm block">Courses that satisfy this requirement</label>
-                    <AdminButton onClick={() => setIsModalOpen(true)}>+ Add course</AdminButton>
                     <AddCourseModal isOpen={isModalOpen} setIsOpen={setIsModalOpen} onAdd={courseKey => {
                         setReqs(prev => {
                             let newReqs = [...prev];
@@ -115,6 +114,7 @@ export default function EditMajor() {
                             setIsModalOpen(false);
                         }}/>
                     ))}
+                    <AdminButton onClick={() => setIsModalOpen(true)}>+ Add course</AdminButton>
                 </div>
             ))}
             <AdminButton onClick={() => setReqs(prev => [...prev, {name: "", number: 0, options: []}])}>+ Add requirement section</AdminButton>
