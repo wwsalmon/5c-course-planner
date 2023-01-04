@@ -115,6 +115,12 @@ export default function EditMajor() {
                         }}/>
                     ))}
                     <AdminButton onClick={() => setIsModalOpen(true)}>+ Add course</AdminButton>
+                    <hr className="my-4"/>
+                    <AdminButton onClick={() => setReqs(prev => {
+                        let newReqs = [...prev];
+                        newReqs.splice(i,1);
+                        return newReqs;
+                    })} className="text-red-500 border-red-500">Delete requirement</AdminButton>
                 </div>
             ))}
             <AdminButton onClick={() => setReqs(prev => [...prev, {name: "", number: 0, options: []}])}>+ Add requirement section</AdminButton>
