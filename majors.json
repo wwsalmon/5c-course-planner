@@ -188,7 +188,7 @@
   {
     "name": "Pomona Economics major",
     "websites": [
-
+      "https://catalog.pomona.edu/preview_entity.php?catoid=43&ent_oid=2270"
     ],
     "reqs": [
       {
@@ -238,6 +238,39 @@
     ]
   },
   {
+    "name": "Pomona Economics minor",
+    "websites": [
+      "https://catalog.pomona.edu/preview_entity.php?catoid=43&ent_oid=2270"
+    ],
+    "reqs": [
+      {
+        "name": "Required courses",
+        "number": 5,
+        "options": [
+          "ECON-151-PO",
+          "ECON-052-PO",
+          "ECON-057-PO",
+          "ECON-101-PO",
+          "ECON-102-PO"
+        ]
+      },
+      {
+        "name": "Three electives numbered 115 and above",
+        "number": 3,
+        "options": [
+          "^ECON-(11[5-9]|1[2-9]\\d)(.*)PO"
+        ]
+      },
+      {
+        "name": "One elective numbered 150 or above",
+        "number": 1,
+        "options": [
+          "^ECON-(15\\d|1[6-9]\\d)(.*)PO"
+        ]
+      }
+    ]
+  },
+  {
     "name": "Pomona Politics major",
     "websites": [
       "https://catalog.pomona.edu/preview_entity.php?catoid=43&ent_oid=2294"
@@ -262,6 +295,331 @@
         "number": 1,
         "options": [
           "POLI-193-PO"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Pomona Politics minor",
+    "websites": [
+      "https://catalog.pomona.edu/preview_entity.php?catoid=43&ent_oid=2294"
+    ],
+    "reqs": [
+      {
+        "name": "Six graded politics courses, including at least one from three of the four subfields",
+        "number": 6,
+        "options": [
+          "^POLI"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Pomona Computer Science major",
+    "websites": [
+      "https://catalog.pomona.edu/preview_entity.php?catoid=43&ent_oid=2267"
+    ],
+    "reqs": [
+      {
+        "name": "Introductory courses",
+        "number": 3,
+        "options": [
+          "^CSCI-051(.*)PO",
+          "CSCI-054-PO",
+          "CSCI-062-PO"
+        ]
+      },
+      {
+        "name": "Core courses",
+        "number": 3,
+        "options": [
+          "CSCI-101-PO",
+          "CSCI-105-PO",
+          "CSCI-140-PO"
+        ]
+      },
+      {
+        "name": "Electives: three additional upper-division courses",
+        "number": 3,
+        "options": [
+          "^CSCI-(06[3-9]|0[7-9][0-9]|1[0-9]{2})(.*)PO"
+        ]
+      },
+      {
+        "name": "Colloquium",
+        "number": 2,
+        "options": [
+          "CSCI-188-PO",
+          "CSCI-190-PO"
+        ]
+      },
+      {
+        "overallName": "Mathematics",
+        "options": [
+          {
+            "name": "Statistics",
+            "number": 1,
+            "options": [
+              "MATH-058-PO"
+            ]
+          },
+          {
+            "name": "Linear Algebra",
+            "number": 1,
+            "options": [
+              "MATH-060-PO"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Pomona Computer Science minor",
+    "websites": [
+      "https://catalog.pomona.edu/preview_entity.php?catoid=43&ent_oid=2267"
+    ],
+    "reqs": [
+      {
+        "name": "Required courses",
+        "number": 3,
+        "options": [
+          "^CSCI-051(.*)PO",
+          "CSCI-054-PO",
+          "CSCI-062-PO"
+        ]
+      },
+      {
+        "name": "Three upper-division Computer Science courses",
+        "number": 3,
+        "options": [
+          "^CSCI-(10\\d|1[1-9]\\d)(.*)PO"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Pomona Biology major",
+    "websites": [
+      "https://catalog.pomona.edu/preview_entity.php?catoid=43&ent_oid=2261"
+    ],
+    "reqs": [
+      {
+        "name": "Intro",
+        "number": 3,
+        "options": [
+          "BIOL-040-PO",
+          "BIOL-041C-PO",
+          "BIOL-041E-PO"
+        ]
+      },
+      {
+        "name": "Organic chemistry",
+        "number": 1,
+        "options": [
+          "CHEM-110A-PO"
+        ]
+      },
+      {
+        "name": "One Pomona math course above 30",
+        "number": 1,
+        "options": [
+          "^MATH-(03[1-9]|0[4-9]\\d|1\\d{2})(.*)PO"
+        ]
+      },
+      {
+        "name": "One upper-division laboratory or field course in organismal biology",
+        "number": 1,
+        "options": [
+          "BIOL-125-PO",
+          "BIOL-131-PO",
+          "BIOL-140-PO",
+          "BIOL-166-PO"
+        ]
+      },
+      {
+        "name": "Four additional upper-division biology courses, three of which must be laboratory or field courses",
+        "number": 4,
+        "options": [
+          "^BIOL-(10\\d|1[1-9]\\d)(.*)PO"
+        ]
+      },
+      {
+        "name": "Senior thesis",
+        "number": 1,
+        "options": [
+          "BIOL-194A-PO",
+          "BIOL-194B-PO",
+          "BIOL-191F-PO"
+        ]
+      },
+      {
+        "overallName": "Gen chem",
+        "options": [
+          {
+            "name": "Two semester sequence",
+            "number": 2,
+            "options": [
+              "CHEM-001A-PO",
+              "CHEM-001B-PO"
+            ]
+          },
+          {
+            "name": "Accelerated sequence",
+            "number": 1,
+            "options": [
+              "CHEM-051-PO"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Pomona Biology minor",
+    "websites": [
+      "https://catalog.pomona.edu/preview_entity.php?catoid=43&ent_oid=2261"
+    ],
+    "reqs": [
+      {
+        "name": "Intro",
+        "number": 3,
+        "options": [
+          "BIOL-040-PO",
+          "BIOL-041C-PO",
+          "BIOL-041E-PO"
+        ]
+      },
+      {
+        "name": "Two upper-division laboratory or field courses in biology",
+        "number": 2,
+        "options": [
+          "^BIOL-(10\\d|1[1-9]\\d)(.*)PO"
+        ]
+      },
+      {
+        "overallName": "Chemistry",
+        "options": [
+          {
+            "name": "General Chemistry",
+            "number": 1,
+            "options": [
+              "CHEM-001A-PO"
+            ]
+          },
+          {
+            "name": "Accelerated",
+            "number": 1,
+            "options": [
+              "CHEM-051-PO"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Pomona Mathematics major",
+    "websites": [
+      "https://catalog.pomona.edu/preview_entity.php?catoid=43&ent_oid=2285"
+    ],
+    "reqs": [
+      {
+        "name": "Calculus",
+        "number": 2,
+        "options": [
+          "MATH-030-PO",
+          "MATH-031-PO"
+        ]
+      },
+      {
+        "name": "Linear algebra",
+        "number": 1,
+        "options": [
+          "MATH-060-PO"
+        ]
+      },
+      {
+        "name": "Eight additional upper-division courses within one of the tracks (see website for tracks)",
+        "number": 8,
+        "options": [
+          "^MATH-(10\\d|1[1-9]\\d)(.*)PO"
+        ]
+      },
+      {
+        "name": "Senior classes",
+        "number": 2,
+        "options": [
+          "MATH-190-PO",
+          "MATH-191-PO"
+        ]
+      },
+      {
+        "overallName": "Multivariable or Vector Calculus",
+        "options": [
+          {
+            "name": "Multivariable",
+            "number": 1,
+            "options": [
+              "MATH-032-PO"
+            ]
+          },
+          {
+            "name": "Vector",
+            "number": 1,
+            "options": [
+              "MATH-067-PO"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Pomona Mathematics minor",
+    "websites": [
+      "https://catalog.pomona.edu/preview_entity.php?catoid=43&ent_oid=2285"
+    ],
+    "reqs": [
+      {
+        "name": "Calculus",
+        "number": 2,
+        "options": [
+          "MATH-030-PO",
+          "MATH-031-PO"
+        ]
+      },
+      {
+        "name": "Linear algebra",
+        "number": 1,
+        "options": [
+          "MATH-060-PO"
+        ]
+      },
+      {
+        "name": "Three additional upper-division courses numbered above 100",
+        "number": 3,
+        "options": [
+          "^MATH-(10\\d|1[1-9]\\d)(.*)PO"
+        ]
+      },
+      {
+        "overallName": "Multivariable or Vector Calculus",
+        "options": [
+          {
+            "name": "Multivariable",
+            "number": 1,
+            "options": [
+              "MATH-032-PO"
+            ]
+          },
+          {
+            "name": "Vector",
+            "number": 1,
+            "options": [
+              "MATH-067-PO"
+            ]
+          }
         ]
       }
     ]
