@@ -8,7 +8,7 @@ import data from "../data_5scheduler.json";
 import MyModal from "./MyModal";
 import {CourseKey} from "../pages";
 
-export default function AddCourseModal({isOpen, setIsOpen, onAddCustom, onAdd, existingList, onAddRegex}: {isOpen: boolean, setIsOpen: Dispatch<SetStateAction<boolean>>, onAdd: (courseKey: string) => void, onAddCustom: (title: string, id: string, source: string) => void, existingList: CourseKey[], onAddRegex: (regex: string) => void}) {
+export default function AddCourseModal({isOpen, setIsOpen, onAddCustom, onAdd, existingList, onAddRegex}: {isOpen: boolean, setIsOpen: Dispatch<SetStateAction<boolean>>, onAdd: (courseKey: string) => void, onAddCustom: (title: string, id: string, source: string) => void, existingList: CourseKey[], onAddRegex?: (regex: string) => void}) {
     const [search, setSearch] = useState<string>("");
     const [tab, setTab] = useState<string>("Catalog");
     const [title, setTitle] = useState<string>("");
